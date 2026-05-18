@@ -19,13 +19,31 @@ if (typeof window !== 'undefined') {
   });
 }
 
+function detectInstalled(): boolean {
+  if (typeof window === 'undefined') return false;
+  // iOS Safari home-screen launch
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if ((window.navigator as any).standalone) return true;
+  // Other browsers
+  return window.matchMedia?.('(display-mode: standalone)').matches ?? false;
+}
+
+function detectIOS(): boolean {
+  if (typeof window === 'undefined') return false;
+  const ua = window.navigator.userAgent;
+  // iPad on iOS 13+ reports as Mac, so also check touch points
+  return /iPad|iPhone|iPod/.test(ua) ||
+    (ua.includes('Mac') && 'ontouchend' in document);
+}
+
 export function usePWAInstall() {
   const [canInstall, setCanInstall] = useState(!!deferredPrompt);
-  const [isInstalled, setIsInstalled] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(detectInstalled);
+  const [isIOS] = useState(detectIOS);
 
   useEffect(() => {
     // Check if already installed as standalone
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (detectInstalled()) {
       setIsInstalled(true);
       return;
     }
@@ -65,5 +83,5 @@ export function usePWAInstall() {
     return false;
   }, []);
 
-  return { canInstall, isInstalled, install };
+  return { canInstall, isInstalled, isIOS, install };
 }

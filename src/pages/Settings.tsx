@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db, type PaymentMethod, type Category, type Unit } from '@/lib/db';
 import { useState, useEffect, useRef } from 'react';
-import { Settings, Store, CreditCard, Tag, Download, Upload, Plus, Trash2, Edit2, Info, Truck, ArrowDownToLine, ArrowUpFromLine, ChevronRight, Receipt, Palette, HardDrive, Package, Camera, X, Ruler, Users as UsersIcon, ShieldCheck, LogOut } from 'lucide-react';
+import { Settings, Store, CreditCard, Tag, Download, Upload, Plus, Trash2, Edit2, Info, Truck, ArrowDownToLine, ArrowUpFromLine, ChevronRight, Receipt, Palette, HardDrive, Package, Camera, X, Ruler, Users as UsersIcon, ShieldCheck, LogOut, Smartphone, CheckCircle2, Globe, Share2 } from 'lucide-react';
 import ThemeColorPicker from '@/components/ThemeColorPicker';
 import { setThemeColor } from '@/hooks/use-theme-color';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +18,7 @@ import { exportBackupData } from '@/components/BackupReminder';
 import { compressImage } from '@/lib/image-utils';
 import { useAuth } from '@/hooks/use-auth';
 import { createUser, isValidPin, isValidUsername, saveSession } from '@/lib/auth';
+import { usePWAInstall } from '@/hooks/use-pwa-install';
 
 export default function Pengaturan() {
   const storeSettings = useLiveQuery(() => db.storeSettings.toCollection().first());
@@ -27,6 +28,10 @@ export default function Pengaturan() {
   const units = useLiveQuery(() => db.units.where('isDeleted').equals(0).toArray());
 
   const { multiUserEnabled, currentUser, isOwner, can, logout } = useAuth();
+
+  // PWA install
+  const { canInstall, isInstalled, isIOS, install } = usePWAInstall();
+  const [installHelpOpen, setInstallHelpOpen] = useState(false);
 
   // Multi-user activation
   const [activateOpen, setActivateOpen] = useState(false);
@@ -456,6 +461,45 @@ export default function Pengaturan() {
         </CardContent>
       </Card>
 
+      {/* Install as App — hidden when already installed */}
+      {!isInstalled && (
+        <Card className="border-0 shadow-sm">
+          <CardContent className="p-3 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <Smartphone className="w-4 h-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold">Install sebagai Aplikasi</p>
+              <p className="text-[10px] text-muted-foreground">
+                Buka langsung dari home screen, tanpa browser
+              </p>
+            </div>
+            {canInstall ? (
+              <Button
+                size="sm"
+                className="h-8 text-xs"
+                onClick={async () => {
+                  const ok = await install();
+                  if (ok) toast.success('Berhasil install KasirGratisan!');
+                }}
+              >
+                <Download className="w-3.5 h-3.5 mr-1" />
+                Install
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 text-xs"
+                onClick={() => setInstallHelpOpen(true)}
+              >
+                Cara Install
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       {/* Karyawan & Akses (current user / multi-user activation) */}
       {multiUserEnabled && currentUser ? (
         <Card className="border-0 shadow-sm">
@@ -745,6 +789,75 @@ export default function Pengaturan() {
            )}
         </CardContent>
       </Card>
+
+      {/* Install Help Dialog */}
+      <Dialog open={installHelpOpen} onOpenChange={setInstallHelpOpen}>
+        <DialogContent className="max-w-[95vw] rounded-xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Smartphone className="w-5 h-5 text-primary" />
+              Cara Install Aplikasi
+            </DialogTitle>
+            <DialogDescription>
+              Browser kamu belum menampilkan tombol install otomatis. Ikuti langkah berikut sesuai perangkat.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 mt-2">
+            {isIOS ? (
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs font-bold">1</div>
+                  <p className="text-sm flex-1">
+                    Buka aplikasi ini di browser <strong>Safari</strong> (bukan Chrome).
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs font-bold">2</div>
+                  <p className="text-sm flex-1">
+                    Ketuk tombol <Share2 className="w-3.5 h-3.5 inline mx-0.5" /> <strong>Share</strong> di bawah layar.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs font-bold">3</div>
+                  <p className="text-sm flex-1">
+                    Pilih <strong>"Add to Home Screen"</strong>, lalu ketuk <strong>Add</strong>.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs font-bold">1</div>
+                  <p className="text-sm flex-1">
+                    Buka aplikasi ini di browser <strong>Chrome</strong> atau <strong>Edge</strong>.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs font-bold">2</div>
+                  <p className="text-sm flex-1">
+                    Ketuk menu <strong>(⋮)</strong> di pojok kanan atas browser.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs font-bold">3</div>
+                  <p className="text-sm flex-1">
+                    Pilih <strong>"Install app"</strong> atau <strong>"Add to Home screen"</strong>.
+                  </p>
+                </div>
+                <div className="rounded-lg bg-muted/60 p-3 text-xs text-muted-foreground flex items-start gap-2">
+                  <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                  <span>
+                    Kalau opsi tidak muncul, refresh halaman dulu lalu coba lagi. Beberapa browser butuh kunjungan kedua sebelum menawarkan install.
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+          <Button className="w-full mt-2" variant="outline" onClick={() => setInstallHelpOpen(false)}>
+            Tutup
+          </Button>
+        </DialogContent>
+      </Dialog>
 
       {/* Store Dialog */}
       <Dialog open={storeDialog} onOpenChange={setStoreDialog}>
