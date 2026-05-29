@@ -6,14 +6,14 @@ import { formatDistanceToNow } from 'date-fns';
 import { id } from 'date-fns/locale';
 
 interface BackupReminderProps {
-  lastBackupAt: Date | null;
+  lastBackupAt: Date | string | null;
   onDismiss: () => void;
   onBackup: () => void;
 }
 
 export default function BackupReminder({ lastBackupAt, onDismiss, onBackup }: BackupReminderProps) {
   const timeAgo = lastBackupAt
-    ? formatDistanceToNow(lastBackupAt, { addSuffix: true, locale: id })
+    ? formatDistanceToNow(lastBackupAt instanceof Date ? lastBackupAt : new Date(lastBackupAt), { addSuffix: true, locale: id })
     : null;
 
   return (
@@ -52,9 +52,10 @@ export default function BackupReminder({ lastBackupAt, onDismiss, onBackup }: Ba
 }
 
 // Utility to check if backup reminder should show
-export function shouldShowBackupReminder(lastBackupAt: Date | null): boolean {
-  if (!lastBackupAt) return true; // never backed up
-  const hoursSince = (Date.now() - lastBackupAt.getTime()) / (1000 * 60 * 60);
+export function shouldShowBackupReminder(lastBackupAt: Date | string | null): boolean {
+  if (!lastBackupAt) return true;
+  const date = lastBackupAt instanceof Date ? lastBackupAt : new Date(lastBackupAt);
+  const hoursSince = (Date.now() - date.getTime()) / (1000 * 60 * 60);
   return hoursSince >= 24;
 }
 
