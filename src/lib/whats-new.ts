@@ -1,4 +1,4 @@
-import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, type LucideIcon } from 'lucide-react';
+import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, FileSpreadsheet, type LucideIcon } from 'lucide-react';
 import { db } from './db';
 
 /**
@@ -28,6 +28,16 @@ export interface WhatsNewFeature {
 }
 
 export const FEATURES: WhatsNewFeature[] = [
+  {
+    id: '2026-06-export-excel',
+    title: 'Export Laporan ke Excel',
+    description:
+      'Kamu bisa export laporan ke file Excel (.xlsx) langsung dari halaman Laporan. Klik tombol Export, pilih rentang tanggal, dan dapatkan file berisi ringkasan laba-rugi, daftar transaksi, detail item terjual, dan pengeluaran — siap diolah atau diarsipkan.',
+    icon: FileSpreadsheet,
+    iconColor: 'text-success bg-success/10',
+    publishedAt: '2026-06-09',
+    cta: { label: 'Buka Laporan', to: '/reports' },
+  },
   {
     id: '2026-05-customers',
     title: 'Data Pelanggan',

@@ -1,22 +1,25 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/lib/db';
 import { useState } from 'react';
-import { BarChart3, TrendingUp, ShoppingCart, Package, DollarSign, ArrowDown, ArrowUp, Minus, Wallet, CreditCard } from 'lucide-react';
+import { BarChart3, TrendingUp, ShoppingCart, Package, DollarSign, ArrowDown, ArrowUp, Minus, Wallet, CreditCard, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { format, subDays, startOfDay, endOfDay } from 'date-fns';
 import { useAuth } from '@/hooks/use-auth';
 import LockedPage from '@/components/LockedPage';
+import ExportReportDialog from '@/components/reports/ExportReportDialog';
 
 export default function Laporan() {
   const { can } = useAuth();
   const [period, setPeriod] = useState<'daily' | '7' | '30'>('7');
   const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
   const [includeExpenses, setIncludeExpenses] = useState(true);
+  const [exportOpen, setExportOpen] = useState(false);
   const days = period === 'daily' ? 1 : Number(period);
 
   const dateRange = (() => {
@@ -132,10 +135,22 @@ export default function Laporan() {
 
   return (
     <div className="px-4 pt-6 pb-20 space-y-5">
-      <h1 className="text-xl font-bold flex items-center gap-2">
-        <BarChart3 className="w-5 h-5 text-primary" />
-        Laporan
-      </h1>
+      <div className="flex items-center justify-between gap-2">
+        <h1 className="text-xl font-bold flex items-center gap-2">
+          <BarChart3 className="w-5 h-5 text-primary" />
+          Laporan
+        </h1>
+        <Button size="sm" variant="outline" className="h-9 gap-1.5" onClick={() => setExportOpen(true)}>
+          <Download className="w-4 h-4" /> Export
+        </Button>
+      </div>
+
+      <ExportReportDialog
+        open={exportOpen}
+        onOpenChange={setExportOpen}
+        defaultStartMs={dateRange.start.getTime()}
+        defaultEndMs={dateRange.end.getTime()}
+      />
 
       <Tabs value={period} onValueChange={v => setPeriod(v as 'daily' | '7' | '30')}>
         <TabsList className="w-full">
