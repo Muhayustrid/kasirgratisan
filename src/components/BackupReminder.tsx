@@ -85,7 +85,7 @@ export async function exportBackupData() {
     expenses: await db.expenses.toArray(),
   };
 
-  const fileName = `kasirgratisan-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  const fileName = `freekasir-backup-${new Date().toISOString().slice(0, 10)}.json`;
   const jsonString = JSON.stringify(data, null, 2);
 
   if (Capacitor.isNativePlatform()) {
@@ -100,8 +100,8 @@ export async function exportBackupData() {
 
       // Share the written file using Android system share dialog
       await Share.share({
-        title: 'Backup KasirGratisan',
-        text: 'File backup data KasirGratisan (JSON)',
+        title: 'Backup FreeKasir',
+        text: 'File backup data FreeKasir (JSON)',
         url: result.uri,
         dialogTitle: 'Simpan / Bagikan Backup',
       });

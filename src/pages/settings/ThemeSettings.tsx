@@ -32,7 +32,7 @@ export default function ThemeSettings() {
       <Card className="border-0 shadow-sm">
         <CardContent className="p-4">
           <ThemeColorPicker
-            value={storeSettings?.themeColor ?? '25'}
+            value={storeSettings?.themeColor ?? '215'}
             onChange={hue => setThemeColor(hue)}
           />
         </CardContent>

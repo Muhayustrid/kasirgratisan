@@ -285,7 +285,7 @@ export default function Pengaturan() {
                 className="h-8 text-xs"
                 onClick={async () => {
                   const ok = await install();
-                  if (ok) toast.success('Berhasil install KasirGratisan!');
+                  if (ok) toast.success('Berhasil install FreeKasir!');
                 }}
               >
                 <Download className="w-3.5 h-3.5 mr-1" />
@@ -613,7 +613,7 @@ export default function Pengaturan() {
       {/* About */}
       <Card className="border-0 shadow-sm">
         <CardContent className="p-4 text-center space-y-2">
-           <p className="text-sm font-bold">KasirGratisan</p>
+           <p className="text-sm font-bold">FreeKasir</p>
            <p className="text-xs text-muted-foreground">POS Gratis untuk UMKM Indonesia 🇮🇩</p>
            <p className="text-[10px] text-muted-foreground">v{APP_VERSION} • Data tersimpan di perangkat</p>
 
@@ -625,7 +625,7 @@ export default function Pengaturan() {
                className="flex items-center justify-center gap-2 w-full h-9 rounded-lg border border-primary/30 bg-primary/5 text-xs font-semibold text-primary hover:bg-primary/10 transition-colors"
              >
                <Sparkles className="w-3.5 h-3.5" />
-               Yang Baru di KasirGratisan
+               Yang Baru di FreeKasir
                {unseenFeatures.length > 0 && (
                  <span className="ml-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
                    {unseenFeatures.length}

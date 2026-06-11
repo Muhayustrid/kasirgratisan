@@ -19,6 +19,12 @@ interface OnboardingProps {
 
 const tutorialSlides = [
   {
+    icon: Store,
+    title: 'Selamat Datang di FreeKasir',
+    description: 'Aplikasi kasir (POS) gratis untuk UMKM Indonesia. Kelola penjualan, stok, dan laporan keuangan tokomu — semua dalam satu aplikasi, langsung dari HP, tanpa ribet.',
+    color: 'text-primary bg-primary/10',
+  },
+  {
     icon: ShoppingCart,
     title: 'Kasir Cepat & Mudah',
     description: 'Proses transaksi dengan cepat. Pilih produk, atur diskon, dan pilih metode pembayaran — semua dalam hitungan detik.',
@@ -55,7 +61,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const [loadDummy, setLoadDummy] = useState(false);
   const [saving, setSaving] = useState(false);
   const [restoring, setRestoring] = useState(false);
-  const [themeColor, setThemeColorState] = useState('25');
+  const [themeColor, setThemeColorState] = useState('215');
   const [installDone, setInstallDone] = useState(false);
   const { canInstall, isInstalled, install } = usePWAInstall();
 
@@ -312,9 +318,17 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               const Icon = slide.icon;
               return (
                 <>
-                  <div className={cn('w-24 h-24 rounded-3xl flex items-center justify-center', slide.color)}>
-                    <Icon className="w-12 h-12" />
-                  </div>
+                  {tutorialIndex === 0 ? (
+                    <img
+                      src="/header-icon.png"
+                      alt="FreeKasir"
+                      className="w-28 h-28 object-contain"
+                    />
+                  ) : (
+                    <div className={cn('w-24 h-24 rounded-3xl flex items-center justify-center', slide.color)}>
+                      <Icon className="w-12 h-12" />
+                    </div>
+                  )}
                   <div className="space-y-3">
                     <h2 className="text-2xl font-bold tracking-tight">{slide.title}</h2>
                     <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">{slide.description}</p>
@@ -337,8 +351,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               </h2>
               <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">
                 {isInstalled || installDone
-                  ? 'KasirGratisan sudah terinstall. Kamu bisa buka langsung dari home screen!'
-                  : 'Install KasirGratisan di HP kamu supaya bisa diakses langsung dari home screen, tanpa buka browser.'}
+                  ? 'FreeKasir sudah terinstall. Kamu bisa buka langsung dari home screen!'
+                  : 'Install FreeKasir di HP kamu supaya bisa diakses langsung dari home screen, tanpa buka browser.'}
               </p>
             </div>
             {!isInstalled && !installDone && (
@@ -351,7 +365,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                       const ok = await install();
                       if (ok) {
                         setInstallDone(true);
-                        toast.success('Berhasil install KasirGratisan!');
+                        toast.success('Berhasil install FreeKasir!');
                       }
                     }}
                   >

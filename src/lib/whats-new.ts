@@ -1,4 +1,4 @@
-import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, FileSpreadsheet, PackageSearch, type LucideIcon } from 'lucide-react';
+import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, FileSpreadsheet, PackageSearch, Sparkles, type LucideIcon } from 'lucide-react';
 import { db } from './db';
 
 /**
@@ -28,6 +28,16 @@ export interface WhatsNewFeature {
 }
 
 export const FEATURES: WhatsNewFeature[] = [
+  {
+    id: '2026-06-rebrand-freekasir',
+    title: 'Wajah Baru: FreeKasir',
+    description:
+      'Aplikasi ini kini bernama FreeKasir dengan tampilan dan warna baru yang lebih segar. Fungsi & data kamu tetap sama, tidak ada yang berubah. Suka warna lain? Kamu tetap bisa pilih tema favoritmu di Pengaturan → Warna Tema.',
+    icon: Sparkles,
+    iconColor: 'text-primary bg-primary/10',
+    publishedAt: '2026-06-11',
+    cta: { label: 'Ganti Warna Tema', to: '/settings/theme' },
+  },
   {
     id: '2026-06-stock-search-scan',
     title: 'Cari & Scan Produk di Stock In/Out',
