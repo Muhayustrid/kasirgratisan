@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
 import { db, type Product } from '@/lib/db';
 import { markAllFeaturesSeen } from '@/lib/whats-new';
 import { cn } from '@/lib/utils';
@@ -60,6 +61,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   // Web/PWA: tutorial slides (0-3), install (4), store setup (5)
   // APK/native: tutorial slides (0-3), store setup (4)
   const [step, setStep] = useState(0);
+  const [agreedTnc, setAgreedTnc] = useState(false);
   const [storeName, setStoreName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
@@ -695,6 +697,42 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
         )}
       </div>
 
+      {/* TnC consent — slide pertama saja */}
+      {isTutorialStep && tutorialIndex === 0 && (
+        <div className="px-4 pt-2">
+          <label className="flex items-start gap-2.5 cursor-pointer">
+            <Checkbox
+              checked={agreedTnc}
+              onCheckedChange={(c) => setAgreedTnc(c === true)}
+              className="mt-0.5"
+            />
+            <span className="text-xs text-muted-foreground leading-relaxed">
+              Dengan melanjutkan, saya menyetujui{' '}
+              <a
+                href="https://freekasir.com/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-primary font-medium underline"
+              >
+                Syarat &amp; Ketentuan
+              </a>{' '}
+              dan{' '}
+              <a
+                href="https://freekasir.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-primary font-medium underline"
+              >
+                Kebijakan Privasi
+              </a>
+              .
+            </span>
+          </label>
+        </div>
+      )}
+
       {/* Navigation */}
       <div className="px-4 pt-4 flex items-center gap-3" style={{ paddingBottom: 'max(2rem, env(safe-area-inset-bottom, 2rem))' }}>
         {step > 0 && !isInstallStep && (
@@ -744,6 +782,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             size="lg"
             className="flex-1 h-12 text-base font-semibold"
             onClick={() => setStep(s => s + 1)}
+            disabled={tutorialIndex === 0 && !agreedTnc}
           >
             Lanjut
             <ChevronRight className="w-4 h-4 ml-1" />
