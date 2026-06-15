@@ -343,7 +343,7 @@ export default function Pengaturan() {
       )}
 
       {/* Install as App — hidden when already installed */}
-      {!isInstalled && (
+      {!isNative && !isInstalled && (
         <Card className="border-0 shadow-sm">
           <CardContent className="p-3 flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
