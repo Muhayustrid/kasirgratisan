@@ -159,6 +159,7 @@ export interface Transaction {
   openedAt?: Date;
   closedAt?: Date;
   createdBy?: number; // userId — kasir pembuat transaksi
+  debtAmount?: number; // snapshot hutang awal; 0/undefined = lunas saat checkout
 }
 
 export interface TransactionItemRecord {
@@ -210,6 +211,28 @@ export interface Expense {
   deletedAt: Date | null;
 }
 
+export interface Debt {
+  id?: number;
+  transactionId: number;
+  customerId: number;
+  customerName: string;
+  originalAmount: number;
+  remainingAmount: number;
+  status: 'unpaid' | 'partial' | 'paid';
+  createdAt: Date;
+  settledAt: Date | null;
+}
+
+export interface DebtPayment {
+  id?: number;
+  debtId: number;
+  amount: number;
+  paymentMethodId: number;
+  date: Date;
+  notes?: string;
+  createdBy?: number;
+}
+
 export interface StoreSettings {
   id?: number;
   storeName: string;
@@ -226,6 +249,7 @@ export interface StoreSettings {
   cloudAutoBackupInterval?: 'off' | 'hourly' | 'daily' | 'weekly'; // auto cloud backup cadence (default off)
   cloudAutoBackupHours?: number; // interval jam bila cloudAutoBackupInterval === 'hourly'
   lastCloudBackupAt?: Date | null; // last successful upload to cloud
+  allowDebt?: boolean; // opt-in pembayaran sebagian/seluruhnya sebagai hutang
 }
 
 // === Database ===
@@ -246,6 +270,8 @@ class PosDatabase extends Dexie {
   units!: Table<Unit>;
   expenseCategories!: Table<ExpenseCategory>;
   expenses!: Table<Expense>;
+  debts!: Table<Debt>;
+  debtPayments!: Table<DebtPayment>;
 
   constructor() {
     super('kasirgratisan-db');
@@ -571,6 +597,31 @@ class PosDatabase extends Dexie {
       users:             '++id, &username, role, isActive',
       expenseCategories: '++id, name, isDeleted',
       expenses:          '++id, date, categoryId, paymentMethodId, createdBy, isDeleted',
+    });
+
+    // Version 11 - Customer debt and immutable installment payments.
+    this.version(11).stores({
+      categories:        '++id, name, isDeleted',
+      products:          '++id, name, &sku, categoryId, barcode, isDeleted, createdBy, updatedBy',
+      suppliers:         '++id, name, isDeleted',
+      customers:         '++id, name, isDeleted',
+      stockIns:          '++id, productId, supplierId, date, createdBy',
+      stockOuts:         '++id, productId, date, createdBy',
+      hppHistory:        '++id, productId, date',
+      paymentMethods:    '++id, name, category',
+      transactions:      '++id, date, &receiptNumber, paymentMethodId, status, orderNumber, createdBy',
+      transactionItems:  '++id, transactionId, productId',
+      storeSettings:     '++id',
+      units:             '++id, &name, isDeleted',
+      users:             '++id, &username, role, isActive',
+      expenseCategories: '++id, name, isDeleted',
+      expenses:          '++id, date, categoryId, paymentMethodId, createdBy, isDeleted',
+      debts:             '++id, &transactionId, customerId, status, createdAt',
+      debtPayments:      '++id, debtId, date, paymentMethodId, createdBy',
+    }).upgrade(async (tx) => {
+      await tx.table('storeSettings').toCollection().modify((s: Partial<StoreSettings>) => {
+        if (s.allowDebt === undefined) s.allowDebt = false;
+      });
     });
   }
 }

@@ -81,10 +81,11 @@ export async function exportReportToExcel(rangeStart: Date, rangeEnd: Date): Pro
   const end = endOfDay(rangeEnd);
 
   // --- Ambil data ---
-  const [allTx, expensesRaw, paymentMethods, expenseCategories, users, storeSettings] =
+  const [allTx, expensesRaw, debtPayments, paymentMethods, expenseCategories, users, storeSettings] =
     await Promise.all([
       db.transactions.where('date').between(start, end, true, true).toArray(),
       db.expenses.where('date').between(start, end, true, true).toArray(),
+      db.debtPayments.where('date').between(start, end, true, true).toArray(),
       db.paymentMethods.toArray(),
       db.expenseCategories.toArray(),
       db.users.toArray(),
@@ -125,15 +126,26 @@ export async function exportReportToExcel(rangeStart: Date, rangeEnd: Date): Pro
   const grossProfit = netSales - totalHpp;
   const grossMargin = netSales > 0 ? (grossProfit / netSales) * 100 : 0;
   const totalExpenses = expenses.reduce((s, e) => s + e.amount, 0);
+  const totalCashIn =
+    transactions.reduce((sum, transaction) => sum + Math.min(transaction.paymentAmount, transaction.total), 0) +
+    debtPayments.reduce((sum, payment) => sum + payment.amount, 0);
   const netProfit = grossProfit - totalExpenses;
   const netMargin = netSales > 0 ? (netProfit / netSales) * 100 : 0;
 
   // Breakdown metode bayar (penjualan).
   const paymentSummary = new Map<string, { amount: number; count: number }>();
   for (const t of transactions) {
+    if (t.paymentAmount <= 0) continue;
     const key = paymentName(t.paymentMethodId);
     const cur = paymentSummary.get(key) ?? { amount: 0, count: 0 };
-    cur.amount += t.total;
+    cur.amount += Math.min(t.paymentAmount, t.total);
+    cur.count += 1;
+    paymentSummary.set(key, cur);
+  }
+  for (const payment of debtPayments) {
+    const key = paymentName(payment.paymentMethodId);
+    const cur = paymentSummary.get(key) ?? { amount: 0, count: 0 };
+    cur.amount += payment.amount;
     cur.count += 1;
     paymentSummary.set(key, cur);
   }
@@ -159,6 +171,7 @@ export async function exportReportToExcel(rangeStart: Date, rangeEnd: Date): Pro
     end,
     txCount: transactions.length,
     totalSales,
+    totalCashIn,
     totalProfit,
     totalRevenue,
     totalDiscount,
@@ -200,6 +213,7 @@ interface SummaryData {
   end: Date;
   txCount: number;
   totalSales: number;
+  totalCashIn: number;
   totalProfit: number;
   totalRevenue: number;
   totalDiscount: number;
@@ -248,6 +262,7 @@ function buildSummarySheet(wb: Workbook, d: SummaryData) {
 
   ws.addRow(['Jumlah Transaksi', d.txCount]);
   moneyRow('Total Omzet', d.totalSales);
+  moneyRow('Kas Masuk', d.totalCashIn);
   ws.addRow([]);
   moneyRow('Pendapatan Kotor', d.totalRevenue);
   moneyRow('Diskon', -d.totalDiscount);
@@ -311,6 +326,8 @@ function buildTransactionsSheet(
     { header: 'Pelanggan', key: 'customer', width: 20 },
     { header: 'Meja', key: 'table', width: 8 },
     { header: 'Metode Bayar', key: 'payment', width: 16 },
+    { header: 'Dibayar', key: 'paid', width: 14, money: true },
+    { header: 'Hutang Awal', key: 'debt', width: 14, money: true },
     { header: 'Kasir', key: 'cashier', width: 16 },
     { header: 'Subtotal', key: 'subtotal', width: 14, money: true },
     { header: 'Diskon', key: 'discount', width: 12, money: true },
@@ -327,7 +344,11 @@ function buildTransactionsSheet(
       time: format(new Date(t.date), 'HH:mm'),
       customer: t.customerName ?? '-',
       table: t.tableNumber ?? '-',
-      payment: helpers.paymentName(t.paymentMethodId),
+      payment: t.debtAmount
+        ? `${t.paymentAmount > 0 ? `${helpers.paymentName(t.paymentMethodId)} + ` : ''}Hutang`
+        : helpers.paymentName(t.paymentMethodId),
+      paid: Math.min(t.paymentAmount, t.total),
+      debt: t.debtAmount ?? 0,
       cashier: helpers.cashierName(t.createdBy),
       subtotal: t.subtotal,
       discount: t.discountAmount,
@@ -340,6 +361,8 @@ function buildTransactionsSheet(
     subtotal: transactions.reduce((s, t) => s + t.subtotal, 0),
     discount: transactions.reduce((s, t) => s + t.discountAmount, 0),
     total: transactions.reduce((s, t) => s + t.total, 0),
+    paid: transactions.reduce((s, t) => s + Math.min(t.paymentAmount, t.total), 0),
+    debt: transactions.reduce((s, t) => s + (t.debtAmount ?? 0), 0),
     profit: transactions.reduce((s, t) => s + t.profit, 0),
   });
   applyMoneyFormat(ws, columns);

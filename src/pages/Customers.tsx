@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db, type Customer } from '@/lib/db';
 import { useState } from 'react';
-import { Users as UsersIcon, Plus, Edit2, Trash2, Phone, MapPin, Mail, Search, Eye, Receipt as ReceiptIcon, ShoppingBag } from 'lucide-react';
+import { Users as UsersIcon, Plus, Edit2, Trash2, Phone, MapPin, Mail, Search, Eye, Receipt as ReceiptIcon, ShoppingBag, HandCoins } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,6 +35,7 @@ export default function CustomersPage() {
   const [notes, setNotes] = useState('');
 
   const customers = useLiveQuery(() => db.customers.where('isDeleted').equals(0).toArray());
+  const debts = useLiveQuery(() => db.debts.toArray());
 
   // Transaksi pelanggan yang sedang dilihat, terbaru dulu.
   // customerId tidak di-index, jadi pakai filter (dataset transaksi UMKM kecil).
@@ -223,19 +224,32 @@ export default function CustomersPage() {
                 const txs = customerTx ?? [];
                 const completed = txs.filter(t => t.status !== 'open');
                 const totalSpent = completed.reduce((s, t) => s + t.total, 0);
+                const customerDebts = debts?.filter((debt) => debt.customerId === viewCustomer.id) ?? [];
+                const remainingDebt = customerDebts.reduce((sum, debt) => sum + debt.remainingAmount, 0);
                 return (
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-3 gap-2">
                     <div className="rounded-xl bg-muted/50 p-3">
                       <p className="text-[10px] text-muted-foreground">Total Transaksi</p>
                       <p className="text-lg font-bold">{completed.length}</p>
                     </div>
                     <div className="rounded-xl bg-primary/5 p-3">
                       <p className="text-[10px] text-muted-foreground">Total Belanja</p>
-                      <p className="text-lg font-bold text-primary">Rp {totalSpent.toLocaleString('id-ID')}</p>
+                      <p className="text-sm font-bold text-primary">Rp {totalSpent.toLocaleString('id-ID')}</p>
+                    </div>
+                    <div className="rounded-xl bg-warning/10 p-3">
+                      <p className="text-[10px] text-muted-foreground">Sisa Hutang</p>
+                      <p className="text-sm font-bold text-warning">Rp {remainingDebt.toLocaleString('id-ID')}</p>
                     </div>
                   </div>
                 );
               })()}
+
+              {(debts?.some((debt) => debt.customerId === viewCustomer.id) ?? false) && (
+                <Button variant="outline" className="w-full" onClick={() => navigate('/debts')}>
+                  <HandCoins className="w-4 h-4 mr-2" />
+                  Buka Daftar Hutang
+                </Button>
+              )}
 
               {/* History */}
               <div className="space-y-2">
@@ -265,6 +279,9 @@ export default function CustomersPage() {
                             <Badge variant="secondary" className="text-[10px] shrink-0">{tx.receiptNumber}</Badge>
                             {tx.status === 'open' && (
                               <Badge className="text-[9px] bg-warning/15 text-warning shrink-0">Open Bill</Badge>
+                            )}
+                            {debts?.some((debt) => debt.transactionId === tx.id && debt.status !== 'paid') && (
+                              <Badge className="text-[9px] bg-warning/15 text-warning shrink-0">Hutang</Badge>
                             )}
                           </div>
                           <span className="text-sm font-bold text-primary shrink-0">Rp {tx.total.toLocaleString('id-ID')}</span>

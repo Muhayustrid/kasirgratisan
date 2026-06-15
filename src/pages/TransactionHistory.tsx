@@ -55,6 +55,7 @@ export default function TransactionHistory() {
   const paymentMethods = useLiveQuery(() => db.paymentMethods.toArray());
   const storeSettings = useLiveQuery(() => db.storeSettings.toCollection().first());
   const users = useLiveQuery(() => db.users.toArray());
+  const debts = useLiveQuery(() => db.debts.toArray());
 
   const userById = (uid?: number) => (uid ? users?.find((u) => u.id === uid) : undefined);
   const cashierName = (uid?: number) => userById(uid)?.name ?? '—';
@@ -73,6 +74,7 @@ export default function TransactionHistory() {
 
   const getPaymentName = (pmId: number) =>
     paymentMethods?.find(pm => pm.id === pmId)?.name || 'Tunai';
+  const getDebt = (txId?: number) => txId ? debts?.find((debt) => debt.transactionId === txId) : undefined;
 
   const filtered = transactions?.filter(tx => {
     // Status filter
@@ -137,6 +139,16 @@ export default function TransactionHistory() {
   const handleDeleteTransaction = async () => {
     if (!selectedTx?.id) return;
     try {
+      const debt = getDebt(selectedTx.id);
+      if (debt?.id) {
+        const installmentCount = await db.debtPayments.where('debtId').equals(debt.id).count();
+        if (installmentCount > 0) {
+          toast.error('Transaksi tidak dapat dihapus karena sudah memiliki pembayaran hutang');
+          setDeleteDialogOpen(false);
+          return;
+        }
+        await db.debts.delete(debt.id);
+      }
       if (restoreStock) {
         const items = getTxItems(selectedTx.id);
         for (const item of items) {
@@ -329,6 +341,8 @@ export default function TransactionHistory() {
                             <p className="text-xs font-mono text-muted-foreground truncate">{tx.receiptNumber}</p>
                             {tx.status === 'open' ? (
                               <Badge variant="secondary" className="text-[9px] h-4 px-1.5 bg-warning/20 text-warning border-warning/30">Open</Badge>
+                            ) : getDebt(tx.id)?.status !== undefined && getDebt(tx.id)?.status !== 'paid' ? (
+                              <Badge variant="secondary" className="text-[9px] h-4 px-1.5 bg-warning/20 text-warning border-warning/30">Hutang</Badge>
                             ) : (
                               <Badge variant="secondary" className="text-[9px] h-4 px-1.5 bg-success/20 text-success border-success/30">Lunas</Badge>
                             )}
@@ -386,7 +400,13 @@ export default function TransactionHistory() {
                 </div>
                  <div className="flex justify-between text-xs">
                    <span className="text-muted-foreground">Pembayaran</span>
-                   <span>{selectedTx.status === 'open' ? '-' : getPaymentName(selectedTx.paymentMethodId)}</span>
+                   <span>
+                     {selectedTx.status === 'open'
+                       ? '-'
+                       : getDebt(selectedTx.id)
+                         ? `${selectedTx.paymentAmount > 0 ? `${getPaymentName(selectedTx.paymentMethodId)} + ` : ''}Hutang`
+                         : getPaymentName(selectedTx.paymentMethodId)}
+                   </span>
                  </div>
                  {multiUserEnabled && (
                    <div className="flex justify-between text-xs">
@@ -451,16 +471,26 @@ export default function TransactionHistory() {
                   <span>Total</span>
                   <span className="text-primary">{rp(selectedTx.total)}</span>
                 </div>
+                {getDebt(selectedTx.id) && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Sisa Hutang</span>
+                    <span className={getDebt(selectedTx.id)?.status === 'paid' ? 'text-success font-medium' : 'text-warning font-medium'}>
+                      {rp(getDebt(selectedTx.id)?.remainingAmount ?? 0)}
+                    </span>
+                  </div>
+                )}
                 {selectedTx.status !== 'open' ? (
                   <>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Bayar</span>
                       <span>{rp(selectedTx.paymentAmount)}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Kembali</span>
-                      <span className="text-success font-medium">{rp(selectedTx.change)}</span>
-                    </div>
+                    {!getDebt(selectedTx.id) && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Kembali</span>
+                        <span className="text-success font-medium">{rp(selectedTx.change)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Profit</span>
                       <span className="text-success font-medium">{rp(selectedTx.profit)}</span>
@@ -506,7 +536,11 @@ export default function TransactionHistory() {
           transaction={selectedTx}
           items={getTxItems(selectedTx.id)}
           storeSettings={storeSettings}
-          paymentMethodName={getPaymentName(selectedTx.paymentMethodId)}
+          paymentMethodName={
+            getDebt(selectedTx.id)
+              ? `${selectedTx.paymentAmount > 0 ? `${getPaymentName(selectedTx.paymentMethodId)} + ` : ''}Hutang`
+              : getPaymentName(selectedTx.paymentMethodId)
+          }
           cashierName={selectedTx.createdBy ? cashierName(selectedTx.createdBy) : undefined}
         />
       )}

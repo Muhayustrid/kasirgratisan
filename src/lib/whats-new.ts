@@ -1,4 +1,4 @@
-import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, FileSpreadsheet, PackageSearch, Sparkles, Cloud, Printer, type LucideIcon } from 'lucide-react';
+import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, FileSpreadsheet, PackageSearch, Sparkles, Cloud, Printer, HandCoins, type LucideIcon } from 'lucide-react';
 import { db } from './db';
 
 /**
@@ -28,6 +28,16 @@ export interface WhatsNewFeature {
 }
 
 export const FEATURES: WhatsNewFeature[] = [
+  {
+    id: '2026-06-customer-debts',
+    title: 'Pembayaran Hutang Pelanggan',
+    description:
+      'Kini kasir dapat menerima pembayaran sebagian atau seluruhnya sebagai hutang untuk pelanggan terpilih. Catat cicilan pembayaran hutang secara bertahap, pantau sisa saldo piutang, dan lihat riwayat pembayaran lengkap langsung dari menu baru Daftar Hutang.',
+    icon: HandCoins,
+    iconColor: 'text-warning bg-warning/10',
+    publishedAt: '2026-06-15',
+    cta: { label: 'Buka Daftar Hutang', to: '/debts' },
+  },
   {
     id: '2026-06-print-daily-closing',
     title: 'Cetak Laporan Closing Harian',

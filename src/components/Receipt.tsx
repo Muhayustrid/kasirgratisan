@@ -215,10 +215,17 @@ export default function Receipt({ open, onClose, transaction, items, storeSettin
               <span>Bayar</span>
               <span>{rp(transaction.paymentAmount)}</span>
             </div>
-            <div className="flex justify-between">
-              <span>Kembali</span>
-              <span>{rp(transaction.change)}</span>
-            </div>
+            {transaction.debtAmount && transaction.debtAmount > 0 ? (
+              <div className="flex justify-between font-bold">
+                <span>Sisa Hutang</span>
+                <span>{rp(transaction.debtAmount)}</span>
+              </div>
+            ) : (
+              <div className="flex justify-between">
+                <span>Kembali</span>
+                <span>{rp(transaction.change)}</span>
+              </div>
+            )}
           </div>
 
           <div className="border-t border-dashed border-gray-400 my-2" />

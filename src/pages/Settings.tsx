@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/lib/db';
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Settings, Store, CreditCard, Tag, Download, Edit2, Info, Truck, ArrowDownToLine, ArrowUpFromLine, ChevronRight, Receipt, Palette, HardDrive, Package, Camera, X, Ruler, Users as UsersIcon, ShieldCheck, LogOut, Smartphone, CheckCircle2, Globe, Share2, Wallet, Sparkles, LineChart, Cloud } from 'lucide-react';
+import { Settings, Store, CreditCard, Tag, Download, Edit2, Info, Truck, ArrowDownToLine, ArrowUpFromLine, ChevronRight, Receipt, Palette, HardDrive, Package, Camera, X, Ruler, Users as UsersIcon, ShieldCheck, LogOut, Smartphone, CheckCircle2, Globe, Share2, Wallet, Sparkles, LineChart, Cloud, HandCoins } from 'lucide-react';
 import WhatsNewModal from '@/components/WhatsNewModal';
 import { FEATURES, getUnseenFeatures } from '@/lib/whats-new';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,6 +33,7 @@ export default function Pengaturan() {
   const expenseCategories = useLiveQuery(() =>
     db.expenseCategories.where('isDeleted').equals(0).toArray(),
   );
+  const activeDebts = useLiveQuery(() => db.debts.where('status').anyOf('unpaid', 'partial').toArray());
 
   const { multiUserEnabled, currentUser, isOwner, can, logout } = useAuth();
   const { isLoggedIn: cloudLoggedIn, isSubscribed: cloudSubscribed } = useCloudAuth();
@@ -94,6 +95,12 @@ export default function Pengaturan() {
     setAnalyticsOn(enabled);
     setAnalyticsEnabled(enabled);
     toast.success(enabled ? 'Analitik diaktifkan' : 'Analitik dinonaktifkan');
+  };
+
+  const handleToggleDebt = async (enabled: boolean) => {
+    if (!storeSettings?.id) return;
+    await db.storeSettings.update(storeSettings.id, { allowDebt: enabled });
+    toast.success(enabled ? 'Pembayaran hutang diizinkan' : 'Pembayaran hutang dinonaktifkan');
   };
 
   // Store edit
@@ -467,6 +474,20 @@ export default function Pengaturan() {
             </Card>
           </Link>
         )}
+        {can('manage_customers') && storeSettings?.allowDebt && (
+          <Link to="/debts">
+            <Card className="border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow mb-2">
+              <CardContent className="p-3 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-warning/10 text-warning flex items-center justify-center"><HandCoins className="w-4 h-4" /></div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold">Daftar Hutang</p>
+                  <p className="text-[10px] text-muted-foreground">{activeDebts?.length ?? 0} hutang belum lunas</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              </CardContent>
+            </Card>
+          </Link>
+        )}
         {can('manage_stock_inout') && (
           <>
             <Link to="/stock-in">
@@ -516,6 +537,19 @@ export default function Pengaturan() {
       {/* Master Data & Preferensi */}
       <div className="space-y-2">
         <h2 className="text-sm font-semibold text-muted-foreground">Master Data & Preferensi</h2>
+
+        {can('manage_store_settings') && (
+          <Card className="border-0 shadow-sm mb-2">
+            <CardContent className="p-3 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-warning/10 text-warning flex items-center justify-center"><HandCoins className="w-4 h-4" /></div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold">Izinkan Hutang</p>
+                <p className="text-[10px] text-muted-foreground">Kasir dapat menerima pembayaran sebagian atau penuh sebagai hutang</p>
+              </div>
+              <Switch checked={storeSettings?.allowDebt ?? false} onCheckedChange={handleToggleDebt} />
+            </CardContent>
+          </Card>
+        )}
 
         {can('manage_categories_payments') && (
           <Link to="/settings/payment-methods">

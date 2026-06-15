@@ -112,7 +112,11 @@ export const getESCPOSData = ({
   }
   lines.push(`TOTAL:     ${rp(transaction.total)}\n`);
   lines.push(`Bayar:     ${rp(transaction.paymentAmount)}\n`);
-  lines.push(`Kembali:   ${rp(transaction.change)}\n`);
+  if (transaction.debtAmount && transaction.debtAmount > 0) {
+    lines.push(`Hutang:    ${rp(transaction.debtAmount)}\n`);
+  } else {
+    lines.push(`Kembali:   ${rp(transaction.change)}\n`);
+  }
   lines.push('--------------------------------\n');
   lines.push('\x1B\x61\x01'); // Center
   lines.push(`${storeSettings?.receiptFooter || 'Terima kasih!'}\n\n\n`);

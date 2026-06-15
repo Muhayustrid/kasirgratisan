@@ -64,6 +64,11 @@ export default function Laporan() {
     return all.filter(e => e.isDeleted === 0);
   }, [dateRange.start.getTime(), dateRange.end.getTime()]);
 
+  const debtPayments = useLiveQuery(
+    () => db.debtPayments.where('date').between(dateRange.start, dateRange.end, true, true).toArray(),
+    [dateRange.start.getTime(), dateRange.end.getTime()],
+  );
+
   const expenseCategories = useLiveQuery(() =>
     db.expenseCategories.where('isDeleted').equals(0).toArray(),
   );
@@ -79,6 +84,9 @@ export default function Laporan() {
   const totalProfit = transactions?.reduce((s, t) => s + t.profit, 0) ?? 0;
   const txCount = transactions?.length ?? 0;
   const averageTransaction = txCount > 0 ? totalSales / txCount : 0;
+  const initialPayments = transactions?.reduce((sum, transaction) => sum + Math.min(transaction.paymentAmount, transaction.total), 0) ?? 0;
+  const installmentPayments = debtPayments?.reduce((sum, payment) => sum + payment.amount, 0) ?? 0;
+  const totalCashIn = initialPayments + installmentPayments;
 
   const totalRevenue = transactions?.reduce((s, t) => s + t.subtotal, 0) ?? 0;
   const totalDiscount = transactions?.reduce((s, t) => s + t.discountAmount, 0) ?? 0;
@@ -140,10 +148,18 @@ export default function Laporan() {
 
   const paymentSummary: Record<number, { name: string; amount: number; count: number }> = {};
   transactions?.forEach(t => {
+    if (t.paymentAmount <= 0) return;
     const method = paymentMethods?.find(p => p.id === t.paymentMethodId);
     const key = t.paymentMethodId ?? 0;
     if (!paymentSummary[key]) paymentSummary[key] = { name: method?.name ?? 'Tanpa metode', amount: 0, count: 0 };
-    paymentSummary[key].amount += t.total;
+    paymentSummary[key].amount += Math.min(t.paymentAmount, t.total);
+    paymentSummary[key].count += 1;
+  });
+  debtPayments?.forEach((payment) => {
+    const method = paymentMethods?.find((item) => item.id === payment.paymentMethodId);
+    const key = payment.paymentMethodId;
+    if (!paymentSummary[key]) paymentSummary[key] = { name: method?.name ?? 'Metode dihapus', amount: 0, count: 0 };
+    paymentSummary[key].amount += payment.amount;
     paymentSummary[key].count += 1;
   });
   const paymentBreakdown = Object.values(paymentSummary).sort((a, b) => b.amount - a.amount);
@@ -289,14 +305,18 @@ export default function Laporan() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               <div className="rounded-lg bg-muted/50 p-3">
                 <p className="text-[10px] text-muted-foreground">Total Omzet</p>
                 <p className="text-sm font-bold">{rp(totalSales)}</p>
               </div>
+              <div className="rounded-lg bg-success/10 p-3">
+                <p className="text-[10px] text-muted-foreground">Kas Masuk</p>
+                <p className="text-sm font-bold text-success">{rp(totalCashIn)}</p>
+              </div>
               <div className="rounded-lg bg-muted/50 p-3">
                 <p className="text-[10px] text-muted-foreground">Rata-rata Transaksi</p>
-                <p className="text-sm font-bold">{rp(averageTransaction)}</p>
+                <p className="text-xs font-bold">{rp(averageTransaction)}</p>
               </div>
             </div>
             <div className="space-y-2">

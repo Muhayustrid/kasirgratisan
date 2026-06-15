@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -52,6 +53,7 @@ export default function Kasir() {
   const [itemDiscountValue, setItemDiscountValue] = useState('');
   const [paymentMethodId, setPaymentMethodId] = useState<string>('');
   const [paymentAmount, setPaymentAmount] = useState('');
+  const [useDebt, setUseDebt] = useState(false);
   const [isQuickAdding, setIsQuickAdding] = useState(false);
   const [receiptOpen, setReceiptOpen] = useState(false);
   const [lastTransaction, setLastTransaction] = useState<Transaction | null>(null);
@@ -97,6 +99,7 @@ export default function Kasir() {
     setTxDiscountValue('');
     setPaymentMethodId('');
     setPaymentAmount('');
+    setUseDebt(false);
     setCustomerName('');
     setCustomerId(undefined);
     setTableNumber('');
@@ -201,7 +204,9 @@ export default function Kasir() {
       : 0;
   const total = Math.max(0, subtotal - txDiscountAmount);
   const paidAmount = Number(paymentAmount) || 0;
-  const change = paidAmount - total;
+  const checkoutPaidAmount = useDebt ? Math.min(total, Math.max(0, paidAmount)) : paidAmount;
+  const debtAmount = useDebt ? Math.max(0, total - checkoutPaidAmount) : 0;
+  const change = useDebt ? 0 : paidAmount - total;
   const totalItemDiscount = cart.reduce((sum, item) => sum + getItemDiscountAmount(item), 0);
   const totalProfit = cart.reduce((sum, item) => sum + (item.product.price - item.product.hpp) * item.qty, 0) - totalItemDiscount - txDiscountAmount;
 
@@ -386,7 +391,23 @@ export default function Kasir() {
   // === Checkout ===
 
   const handleCheckout = async () => {
-    if (!paymentMethodId || paidAmount < total) return;
+    if (useDebt) {
+      if (!storeSettings?.allowDebt) return;
+      if (!customerId) {
+        toast.error('Pilih pelanggan dari daftar untuk transaksi hutang');
+        return;
+      }
+      if (paidAmount < 0 || paidAmount > total) {
+        toast.error('Jumlah bayar harus antara Rp0 dan total transaksi');
+        return;
+      }
+      if (checkoutPaidAmount > 0 && !paymentMethodId) {
+        toast.error('Pilih metode untuk pembayaran awal');
+        return;
+      }
+    } else if (!paymentMethodId || paidAmount < total) {
+      return;
+    }
 
     if (editingTxId) {
       // Update existing open bill → paid
@@ -399,8 +420,8 @@ export default function Kasir() {
         discountValue: Number(txDiscountValue) || 0,
         discountAmount: txDiscountAmount,
         total,
-        paymentMethodId: Number(paymentMethodId),
-        paymentAmount: paidAmount,
+        paymentMethodId: checkoutPaidAmount > 0 ? Number(paymentMethodId) : 0,
+        paymentAmount: checkoutPaidAmount,
         change,
         profit: totalProfit,
         customerId,
@@ -408,7 +429,21 @@ export default function Kasir() {
         tableNumber: tableNumber.trim() || undefined,
         remarks: remarks.trim() || undefined,
         closedAt: new Date(),
+        debtAmount,
       });
+
+      if (debtAmount > 0) {
+        await db.debts.add({
+          transactionId: editingTxId,
+          customerId: customerId!,
+          customerName: customerName.trim(),
+          originalAmount: debtAmount,
+          remainingAmount: debtAmount,
+          status: checkoutPaidAmount > 0 ? 'partial' : 'unpaid',
+          createdAt: new Date(),
+          settledAt: null,
+        });
+      }
 
       await db.transactionItems.where('transactionId').equals(editingTxId).delete();
       const itemRecords: TransactionItemRecord[] = cart.map(c => ({
@@ -462,8 +497,8 @@ export default function Kasir() {
         discountValue: Number(txDiscountValue) || 0,
         discountAmount: txDiscountAmount,
         total,
-        paymentMethodId: Number(paymentMethodId),
-        paymentAmount: paidAmount,
+        paymentMethodId: checkoutPaidAmount > 0 ? Number(paymentMethodId) : 0,
+        paymentAmount: checkoutPaidAmount,
         change,
         profit: totalProfit,
         date: new Date(),
@@ -474,9 +509,23 @@ export default function Kasir() {
         tableNumber: tableNumber.trim() || undefined,
         remarks: remarks.trim() || undefined,
         createdBy: currentUser?.id,
+        debtAmount,
       };
 
       const txId = await db.transactions.add(txData);
+
+      if (debtAmount > 0) {
+        await db.debts.add({
+          transactionId: txId as number,
+          customerId: customerId!,
+          customerName: customerName.trim(),
+          originalAmount: debtAmount,
+          remainingAmount: debtAmount,
+          status: checkoutPaidAmount > 0 ? 'partial' : 'unpaid',
+          createdAt: new Date(),
+          settledAt: null,
+        });
+      }
 
       const itemRecords: TransactionItemRecord[] = cart.map(c => ({
         transactionId: txId as number,
@@ -859,7 +908,7 @@ export default function Kasir() {
                 </Button>
                 <Button
                   className="flex-1 h-12 text-sm font-semibold"
-                  onClick={() => { setCheckoutOpen(true); setPaymentMethodId(paymentMethods?.[0]?.id?.toString() ?? ''); setPaymentAmount(total.toString()); setIsQuickAdding(false); }}
+                  onClick={() => { setCheckoutOpen(true); setUseDebt(false); setPaymentMethodId(paymentMethods?.[0]?.id?.toString() ?? ''); setPaymentAmount(total.toString()); setIsQuickAdding(false); }}
                 >
                   <CreditCard className="w-4 h-4 mr-2" />
                   Bayar
@@ -1078,7 +1127,7 @@ export default function Kasir() {
                 </Button>
                 <Button
                   className="flex-1 h-12 text-sm font-semibold"
-                  onClick={() => { setCheckoutOpen(true); setPaymentMethodId(paymentMethods?.[0]?.id?.toString() ?? ''); setPaymentAmount(total.toString()); setIsQuickAdding(false); }}
+                  onClick={() => { setCheckoutOpen(true); setUseDebt(false); setPaymentMethodId(paymentMethods?.[0]?.id?.toString() ?? ''); setPaymentAmount(total.toString()); setIsQuickAdding(false); }}
                 >
                   <CreditCard className="w-4 h-4 mr-2" />
                   Bayar
@@ -1169,6 +1218,23 @@ export default function Kasir() {
               <p className="text-3xl font-bold text-primary">{rp(total)}</p>
             </div>
 
+            {storeSettings?.allowDebt && (
+              <div className="flex items-center justify-between gap-3 rounded-lg border border-border p-3">
+                <div>
+                  <p className="text-sm font-semibold">Bayar dengan hutang</p>
+                  <p className="text-[10px] text-muted-foreground">Pembayaran boleh sebagian atau seluruhnya hutang</p>
+                </div>
+                <Switch
+                  checked={useDebt}
+                  onCheckedChange={(checked) => {
+                    setUseDebt(checked);
+                    setPaymentAmount(checked ? '0' : total.toString());
+                    setIsQuickAdding(false);
+                  }}
+                />
+              </div>
+            )}
+
             <div className="space-y-1.5">
               <p className="text-sm font-medium">Metode Pembayaran</p>
               <div className="grid grid-cols-3 gap-2">
@@ -1181,7 +1247,7 @@ export default function Kasir() {
             </div>
 
             <div className="space-y-1.5">
-              <p className="text-sm font-medium">Jumlah Bayar</p>
+              <p className="text-sm font-medium">{useDebt ? 'Pembayaran Awal' : 'Jumlah Bayar'}</p>
               <Input
                 type="number"
                 inputMode="numeric"
@@ -1249,6 +1315,16 @@ export default function Kasir() {
               />
             </div>
 
+            {useDebt && debtAmount > 0 && (
+              <div className="flex justify-between items-center bg-warning/10 p-3 rounded-lg">
+                <div>
+                  <p className="text-sm font-medium">Sisa Hutang</p>
+                  <p className="text-[10px] text-muted-foreground">Pelanggan wajib dipilih dari daftar</p>
+                </div>
+                <span className="text-lg font-bold text-warning">{rp(debtAmount)}</span>
+              </div>
+            )}
+
             {paidAmount >= total && (
               <div className="flex justify-between items-center bg-success/10 p-3 rounded-xl">
                 <span className="text-sm font-medium">Kembalian</span>
@@ -1256,7 +1332,15 @@ export default function Kasir() {
               </div>
             )}
 
-            <Button className="w-full h-12 text-base font-semibold" onClick={handleCheckout} disabled={!paymentMethodId || paidAmount < total}>
+            <Button
+              className="w-full h-12 text-base font-semibold"
+              onClick={handleCheckout}
+              disabled={
+                useDebt
+                  ? !customerId || paidAmount < 0 || paidAmount > total || (checkoutPaidAmount > 0 && !paymentMethodId)
+                  : !paymentMethodId || paidAmount < total
+              }
+            >
               <Check className="w-5 h-5 mr-2" />
               Konfirmasi Transaksi
             </Button>
@@ -1423,7 +1507,13 @@ export default function Kasir() {
           transaction={lastTransaction}
           items={lastTxItems}
           storeSettings={storeSettings}
-          paymentMethodName={paymentMethods?.find(pm => pm.id === lastTransaction.paymentMethodId)?.name || 'Tunai'}
+          paymentMethodName={
+            lastTransaction.debtAmount
+              ? (lastTransaction.paymentAmount > 0
+                  ? `${paymentMethods?.find(pm => pm.id === lastTransaction.paymentMethodId)?.name || 'Pembayaran awal'} + Hutang`
+                  : 'Hutang')
+              : paymentMethods?.find(pm => pm.id === lastTransaction.paymentMethodId)?.name || 'Tunai'
+          }
           cashierName={lastTransaction.createdBy ? allUsers?.find(u => u.id === lastTransaction.createdBy)?.name : undefined}
         />
       )}
