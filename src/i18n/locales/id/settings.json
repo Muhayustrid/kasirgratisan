@@ -1,0 +1,212 @@
+{
+  "title": "Pengaturan",
+  "storeFallback": "Toko Saya",
+  "notSet": "Belum diatur",
+  "cloudSync": {
+    "title": "Cloud Sync",
+    "status": {
+      "inactive": "BELUM AKTIF",
+      "selectStore": "PILIH TOKO",
+      "needsSetup": "PERLU DIATUR",
+      "active": "AKTIF"
+    },
+    "desc": {
+      "inactive": "Aktifkan Cloud Sync untuk memantau laporan toko secara real-time di dashboard.freekasir.com — buka dari HP atau laptop mana saja, data aman walau perangkat hilang atau ganti.",
+      "selectStore": "Langganan aktif, tapi perangkat belum terhubung ke toko. Pilih toko agar data bisa disinkronkan.",
+      "needsSetup": "Toko sudah terhubung, tapi sinkronisasi otomatis belum dinyalakan. Atur jadwalnya agar data tersinkron rutin.",
+      "active": "Sinkronisasi aktif. Pantau laporan toko real-time di dashboard.freekasir.com dari perangkat mana saja."
+    },
+    "lastSync": "Terakhir sync: {{time}}",
+    "neverSynced": "Belum pernah disinkronkan"
+  },
+  "installApp": {
+    "title": "Install sebagai Aplikasi",
+    "hint": "Buka langsung dari home screen, tanpa browser",
+    "installButton": "Install",
+    "installSuccess": "Berhasil install FreeKasir!",
+    "helpButton": "Cara Install"
+  },
+  "installHelp": {
+    "title": "Cara Install Aplikasi",
+    "description": "Browser kamu belum menampilkan tombol install otomatis. Ikuti langkah berikut sesuai perangkat.",
+    "iosStep1": "Buka aplikasi ini di browser <strong>Safari</strong> (bukan Chrome).",
+    "iosStep2": "Ketuk tombol <0 /> <strong>Share</strong> di bawah layar.",
+    "iosStep3": "Pilih <strong>\"Add to Home Screen\"</strong>, lalu ketuk <strong>Add</strong>.",
+    "androidStep1": "Buka aplikasi ini di browser <strong>Chrome</strong> atau <strong>Edge</strong>.",
+    "androidStep2": "Ketuk menu <strong>(⋮)</strong> di pojok kanan atas browser.",
+    "androidStep3": "Pilih <strong>\"Install app\"</strong> atau <strong>\"Add to Home screen\"</strong>.",
+    "troubleshoot": "Kalau opsi tidak muncul, refresh halaman dulu lalu coba lagi. Beberapa browser butuh kunjungan kedua sebelum menawarkan install."
+  },
+  "employees": {
+    "sectionTitle": "Karyawan & Akses",
+    "owner": "Pemilik",
+    "staff": "Karyawan",
+    "logout": "Keluar",
+    "activate": {
+      "title": "Aktifkan Multi-User",
+      "description": "Buat akun karyawan dengan akses terbatas. Data Anda tetap aman.",
+      "button": "Aktifkan"
+    },
+    "manage": {
+      "title": "Kelola Karyawan",
+      "description": "{{count}} akun terdaftar · atur akses per karyawan"
+    },
+    "active": {
+      "title": "Multi-User Aktif",
+      "description": "Karyawan harus login untuk akses kasir",
+      "disable": "Nonaktifkan"
+    },
+    "activateDialog": {
+      "title": "Aktifkan Multi-User",
+      "description": "Buat akun pemilik. Setelah aktif, Anda harus login dengan username & PIN ini setiap kali buka aplikasi. Data toko Anda tetap utuh.",
+      "nameLabel": "Nama Anda",
+      "namePlaceholder": "Contoh: Pak Budi",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Contoh: owner",
+      "usernameHint": "3-20 karakter, huruf/angka/underscore. Tidak bisa diubah.",
+      "pinLabel": "PIN",
+      "pinPlaceholder": "4-6 digit angka",
+      "pinConfirmLabel": "Konfirmasi PIN",
+      "pinConfirmPlaceholder": "Ketik ulang PIN",
+      "warningTitle": "Penting:",
+      "warningText": "Catat username & PIN dengan baik. Jika lupa, satu-satunya cara untuk reset adalah dengan menghapus data aplikasi (data toko juga terhapus). Pastikan Anda sudah backup.",
+      "submitting": "Mengaktifkan…",
+      "submit": "Aktifkan Multi-User"
+    },
+    "disableDialog": {
+      "title": "Nonaktifkan Multi-User?",
+      "description": "Aplikasi akan kembali ke mode tanpa login. Akun karyawan tetap tersimpan dan akan aktif kembali jika multi-user diaktifkan lagi. Data transaksi tetap utuh.",
+      "confirm": "Nonaktifkan"
+    },
+    "logoutDialog": {
+      "title": "Keluar dari Akun?",
+      "description": "Anda akan diarahkan ke halaman login. Pastikan tidak ada open bill yang belum disimpan.",
+      "confirm": "Keluar"
+    }
+  },
+  "transactionsAndStock": {
+    "sectionTitle": "Transaksi & Stok",
+    "transactionHistory": {
+      "title": "Riwayat Transaksi",
+      "description": "Lihat semua transaksi & cetak ulang struk"
+    },
+    "supplier": {
+      "title": "Supplier",
+      "description": "Kelola data supplier"
+    },
+    "customers": {
+      "title": "Pelanggan",
+      "description": "Kelola data pelanggan"
+    },
+    "debts": {
+      "title": "Daftar Hutang",
+      "description": "{{count}} hutang belum lunas"
+    },
+    "stockIn": {
+      "title": "Stock In",
+      "description": "Catat barang masuk & HPP otomatis"
+    },
+    "stockOut": {
+      "title": "Stock Out",
+      "description": "Catat barang keluar non-penjualan"
+    },
+    "expenses": {
+      "title": "Pengeluaran",
+      "description": "Catat biaya operasional non-stok (listrik, gaji, sewa, dll)"
+    },
+    "stockReport": {
+      "title": "Laporan Stok",
+      "description": "Lihat pergerakan stok per periode"
+    }
+  },
+  "masterData": {
+    "sectionTitle": "Master Data & Preferensi",
+    "allowDebt": {
+      "title": "Izinkan Hutang",
+      "description": "Kasir dapat menerima pembayaran sebagian atau penuh sebagai hutang"
+    },
+    "paymentMethods": {
+      "title": "Metode Pembayaran",
+      "description": "{{count}} metode · tunai, transfer, e-wallet, qris"
+    },
+    "productCategory": {
+      "title": "Kategori Produk",
+      "description": "{{count}} kategori"
+    },
+    "expenseCategory": {
+      "title": "Kategori Pengeluaran",
+      "description": "{{count}} kategori"
+    },
+    "units": {
+      "title": "Satuan",
+      "description": "{{count}} satuan · pcs, kg, porsi, dll"
+    },
+    "theme": {
+      "title": "Warna Tema",
+      "description": "Sesuaikan warna aksen aplikasi"
+    },
+    "backup": {
+      "title": "Backup & Restore",
+      "description": "Export / import data toko (JSON)"
+    }
+  },
+  "bluetoothPrinter": {
+    "title": "Printer Bluetooth",
+    "default": "Printer Default",
+    "notSelected": "Belum dipilih — struk akan dicetak ke printer terpasang pertama yang ditemukan.",
+    "search": "Cari Printer Terpasang",
+    "searching": "Mencari...",
+    "selectPrinter": "Pilih printer:",
+    "unnamed": "Tanpa Nama",
+    "hint": "Pastikan printer sudah dipasangkan (paired) lewat Pengaturan Bluetooth Android terlebih dahulu."
+  },
+  "privacyAnalytics": {
+    "title": "Privasi & Analitik",
+    "label": "Bantu Kami dengan Data Anonim",
+    "description": "Mengirim statistik penggunaan anonim (halaman yang dibuka & aksi seperti buat produk/transaksi) untuk membantu pengembangan. Data bisnis seperti nama produk, harga, dan nominal transaksi tidak pernah dikirim.",
+    "enabled": "Analitik diaktifkan",
+    "disabled": "Analitik dinonaktifkan"
+  },
+  "language": {
+    "title": "Bahasa / Language"
+  },
+  "about": {
+    "appName": "FreeKasir",
+    "tagline": "POS Gratis untuk UMKM Indonesia 🇮🇩",
+    "version": "v{{version}} • Data tersimpan di perangkat",
+    "whatsNew": "Yang Baru di FreeKasir",
+    "requestFeature": "💡 Request Fitur",
+    "donate": "☕ Traktir Kopi untuk Developer",
+    "telegram": "💬 Gabung Grup Telegram",
+    "storageUsed": "Penyimpanan Terpakai"
+  },
+  "storeDialog": {
+    "title": "Info Toko",
+    "logoLabel": "Logo Toko",
+    "logoPreviewAlt": "Logo",
+    "logoChange": "Ganti Logo",
+    "logoSelect": "Pilih Logo",
+    "logoRemove": "Hapus Logo",
+    "storeName": "Nama Toko",
+    "address": "Alamat",
+    "phone": "Telepon",
+    "saveSuccess": "Info toko disimpan"
+  },
+  "toast": {
+    "noPairedDevices": "Belum ada perangkat Bluetooth yang dipasangkan",
+    "loadPrintersFailed": "Gagal membaca daftar printer",
+    "printerDefaultSet": "Printer default: {{name}}",
+    "printerDefaultCleared": "Printer default dihapus",
+    "debtEnabled": "Pembayaran hutang diizinkan",
+    "debtDisabled": "Pembayaran hutang dinonaktifkan",
+    "invalidImage": "File harus berupa gambar",
+    "processImageFailed": "Gagal memproses gambar",
+    "nameRequired": "Nama pemilik wajib diisi",
+    "usernameInvalid": "Username 3-20 karakter, hanya huruf/angka/underscore",
+    "pinInvalid": "PIN harus 4-6 digit angka",
+    "pinMismatch": "Konfirmasi PIN tidak cocok",
+    "createOwnerFailed": "Gagal membuat akun pemilik",
+    "multiUserEnabled": "Multi-user aktif. Anda login sebagai pemilik.",
+    "multiUserDisabled": "Multi-user dinonaktifkan"
+  }
+}

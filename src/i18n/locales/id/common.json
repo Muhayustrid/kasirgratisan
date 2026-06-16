@@ -62,5 +62,11 @@
     "installHint": "Buka langsung dari home screen, tanpa browser",
     "howToInstall": "Cara Install",
     "storageUsed": "Penyimpanan Terpakai"
+  },
+  "whatsNew": {
+    "title": "Yang Baru di FreeKasir",
+    "slide": "Slide {{number}}",
+    "finish": "Selesai",
+    "skip": "Lewati"
   }
 }

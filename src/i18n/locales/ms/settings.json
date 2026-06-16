@@ -1,0 +1,212 @@
+{
+  "title": "Tetapan",
+  "storeFallback": "Kedai Saya",
+  "notSet": "Belum ditetapkan",
+  "cloudSync": {
+    "title": "Cloud Sync",
+    "status": {
+      "inactive": "BELUM AKTIF",
+      "selectStore": "PILIH KEDAI",
+      "needsSetup": "PERLU DIATUR",
+      "active": "AKTIF"
+    },
+    "desc": {
+      "inactive": "Aktifkan Cloud Sync untuk memantau laporan kedai secara real-time di dashboard.freekasir.com — akses dari mana-mana peranti, data selamat walaupun peranti hilang atau bertukar.",
+      "selectStore": "Langganan aktif, tetapi peranti belum disambungkan ke kedai. Pilih kedai untuk menyelaraskan data.",
+      "needsSetup": "Kedai telah disambungkan, tetapi penyelarasan automatik belum diaktifkan. Tetapkan jadual agar data diselaras secara rutin.",
+      "active": "Penyelarasan aktif. Pantau laporan kedai secara real-time di dashboard.freekasir.com dari mana-mana peranti."
+    },
+    "lastSync": "Selaras terakhir: {{time}}",
+    "neverSynced": "Belum pernah diselaraskan"
+  },
+  "installApp": {
+    "title": "Pasang sebagai Aplikasi",
+    "hint": "Buka terus dari skrin utama, tanpa pelayar",
+    "installButton": "Pasang",
+    "installSuccess": "Berjaya pasang FreeKasir!",
+    "helpButton": "Cara Pasang"
+  },
+  "installHelp": {
+    "title": "Cara Pasang Aplikasi",
+    "description": "Pelayar anda tidak memaparkan butang pasang automatik. Ikuti langkah berikut mengikut peranti.",
+    "iosStep1": "Buka aplikasi ini di pelayar <strong>Safari</strong> (bukan Chrome).",
+    "iosStep2": "Ketik butang <0 /> <strong>Share</strong> di bawah skrin.",
+    "iosStep3": "Pilih <strong>\"Add to Home Screen\"</strong>, kemudian ketik <strong>Add</strong>.",
+    "androidStep1": "Buka aplikasi ini di pelayar <strong>Chrome</strong> atau <strong>Edge</strong>.",
+    "androidStep2": "Ketik menu <strong>(⋮)</strong> di penjuru kanan atas pelayar.",
+    "androidStep3": "Pilih <strong>\"Install app\"</strong> atau <strong>\"Add to Home screen\"</strong>.",
+    "troubleshoot": "Jika pilihan tidak muncul, muat semula halaman dan cuba lagi. Sesetengah pelayar memerlukan lawatan kedua sebelum menawarkan pemasangan."
+  },
+  "employees": {
+    "sectionTitle": "Pekerja & Akses",
+    "owner": "Pemilik",
+    "staff": "Pekerja",
+    "logout": "Log Keluar",
+    "activate": {
+      "title": "Aktifkan Multi-User",
+      "description": "Buat akaun pekerja dengan akses terhad. Data anda kekal selamat.",
+      "button": "Aktifkan"
+    },
+    "manage": {
+      "title": "Urus Pekerja",
+      "description": "{{count}} akaun berdaftar · atur akses setiap pekerja"
+    },
+    "active": {
+      "title": "Multi-User Aktif",
+      "description": "Pekerja mesti log masuk untuk akses kasir",
+      "disable": "Nyahaktifkan"
+    },
+    "activateDialog": {
+      "title": "Aktifkan Multi-User",
+      "description": "Buat akaun pemilik. Selepas aktif, anda perlu log masuk dengan username & PIN ini setiap kali buka aplikasi. Data kedai anda kekal utuh.",
+      "nameLabel": "Nama Anda",
+      "namePlaceholder": "Cth: Pak Ali",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Cth: owner",
+      "usernameHint": "3-20 aksara, huruf/angka/garis bawah. Tidak boleh ditukar.",
+      "pinLabel": "PIN",
+      "pinPlaceholder": "4-6 digit nombor",
+      "pinConfirmLabel": "Sahkan PIN",
+      "pinConfirmPlaceholder": "Taip semula PIN",
+      "warningTitle": "Penting:",
+      "warningText": "Simpan username & PIN dengan baik. Jika terlupa, satu-satunya cara untuk reset adalah dengan memadam data aplikasi (data kedai juga terpadam). Pastikan anda telah backup.",
+      "submitting": "Mengaktifkan…",
+      "submit": "Aktifkan Multi-User"
+    },
+    "disableDialog": {
+      "title": "Nyahaktifkan Multi-User?",
+      "description": "Aplikasi akan kembali ke mod tanpa log masuk. Akaun pekerja akan disimpan dan akan aktif semula jika multi-user diaktifkan lagi. Data transaksi kekal utuh.",
+      "confirm": "Nyahaktifkan"
+    },
+    "logoutDialog": {
+      "title": "Log Keluar?",
+      "description": "Anda akan dihalakan ke halaman log masuk. Pastikan tiada bil terbuka yang belum disimpan.",
+      "confirm": "Log Keluar"
+    }
+  },
+  "transactionsAndStock": {
+    "sectionTitle": "Transaksi & Stok",
+    "transactionHistory": {
+      "title": "Sejarah Transaksi",
+      "description": "Lihat semua transaksi & cetak semula resit"
+    },
+    "supplier": {
+      "title": "Pembekal",
+      "description": "Urus data pembekal"
+    },
+    "customers": {
+      "title": "Pelanggan",
+      "description": "Urus data pelanggan"
+    },
+    "debts": {
+      "title": "Senarai Hutang",
+      "description": "{{count}} hutang belum lunas"
+    },
+    "stockIn": {
+      "title": "Stock In",
+      "description": "Catat barang masuk & Kos automatik"
+    },
+    "stockOut": {
+      "title": "Stock Out",
+      "description": "Catat barang keluar bukan jualan"
+    },
+    "expenses": {
+      "title": "Perbelanjaan",
+      "description": "Catat kos operasi bukan stok (elektrik, gaji, sewa, dll)"
+    },
+    "stockReport": {
+      "title": "Laporan Stok",
+      "description": "Lihat pergerakan stok setiap tempoh"
+    }
+  },
+  "masterData": {
+    "sectionTitle": "Data Induk & Keutamaan",
+    "allowDebt": {
+      "title": "Benarkan Hutang",
+      "description": "Kasir boleh menerima bayaran separa atau penuh sebagai hutang"
+    },
+    "paymentMethods": {
+      "title": "Kaedah Pembayaran",
+      "description": "{{count}} kaedah · tunai, pindahan, e-wallet, qris"
+    },
+    "productCategory": {
+      "title": "Kategori Produk",
+      "description": "{{count}} kategori"
+    },
+    "expenseCategory": {
+      "title": "Kategori Perbelanjaan",
+      "description": "{{count}} kategori"
+    },
+    "units": {
+      "title": "Unit",
+      "description": "{{count}} unit · pcs, kg, hidangan, dll"
+    },
+    "theme": {
+      "title": "Warna Tema",
+      "description": "Sesuaikan warna aksen aplikasi"
+    },
+    "backup": {
+      "title": "Backup & Restore",
+      "description": "Export / import data kedai (JSON)"
+    }
+  },
+  "bluetoothPrinter": {
+    "title": "Pencetak Bluetooth",
+    "default": "Pencetak Lalai",
+    "notSelected": "Belum dipilih — resit akan dicetak ke pencetak berpasangan pertama yang ditemui.",
+    "search": "Cari Pencetak Berpasangan",
+    "searching": "Mencari...",
+    "selectPrinter": "Pilih pencetak:",
+    "unnamed": "Tanpa Nama",
+    "hint": "Pastikan pencetak telah dipasangkan melalui Tetapan Bluetooth Android terlebih dahulu."
+  },
+  "privacyAnalytics": {
+    "title": "Privasi & Analitik",
+    "label": "Bantu Kami dengan Data Tanpa Nama",
+    "description": "Menghantar statistik penggunaan tanpa nama (halaman dilawati & aksi seperti buat produk/transaksi) untuk membantu pembangunan. Data perniagaan seperti nama produk, harga, dan jumlah transaksi tidak pernah dihantar.",
+    "enabled": "Analitik diaktifkan",
+    "disabled": "Analitik dinyahaktifkan"
+  },
+  "language": {
+    "title": "Bahasa / Language"
+  },
+  "about": {
+    "appName": "FreeKasir",
+    "tagline": "POS Percuma untuk UMK Indonesia 🇮🇩",
+    "version": "v{{version}} • Data tersimpan dalam peranti",
+    "whatsNew": "Apa Yang Baru di FreeKasir",
+    "requestFeature": "💡 Minta Fitur",
+    "donate": "☕ Belanja Kopi untuk Pembangun",
+    "telegram": "💬 Sertai Grup Telegram",
+    "storageUsed": "Storan Digunakan"
+  },
+  "storeDialog": {
+    "title": "Info Kedai",
+    "logoLabel": "Logo Kedai",
+    "logoPreviewAlt": "Logo",
+    "logoChange": "Tukar Logo",
+    "logoSelect": "Pilih Logo",
+    "logoRemove": "Buang Logo",
+    "storeName": "Nama Kedai",
+    "address": "Alamat",
+    "phone": "Telefon",
+    "saveSuccess": "Info kedai disimpan"
+  },
+  "toast": {
+    "noPairedDevices": "Tiada peranti Bluetooth yang dipasangkan",
+    "loadPrintersFailed": "Gagal memuatkan senarai pencetak",
+    "printerDefaultSet": "Pencetak lalai: {{name}}",
+    "printerDefaultCleared": "Pencetak lalai dipadam",
+    "debtEnabled": "Bayaran hutang dibenarkan",
+    "debtDisabled": "Bayaran hutang dinyahaktifkan",
+    "invalidImage": "Fail mestilah gambar",
+    "processImageFailed": "Gagal memproses gambar",
+    "nameRequired": "Nama pemilik diperlukan",
+    "usernameInvalid": "Username 3-20 aksara, huruf/angka/garis bawah sahaja",
+    "pinInvalid": "PIN mestilah 4-6 digit",
+    "pinMismatch": "Pengesahan PIN tidak sepadan",
+    "createOwnerFailed": "Gagal membuat akaun pemilik",
+    "multiUserEnabled": "Multi-user aktif. Anda log masuk sebagai pemilik.",
+    "multiUserDisabled": "Multi-user dinyahaktifkan"
+  }
+}

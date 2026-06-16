@@ -62,5 +62,11 @@
     "installHint": "Buka terus dari skrin utama, tanpa pelayar",
     "howToInstall": "Cara Pasang",
     "storageUsed": "Storan Diguna"
+  },
+  "whatsNew": {
+    "title": "Apa Yang Baru di FreeKasir",
+    "slide": "Slaid {{number}}",
+    "finish": "Selesai",
+    "skip": "Langkau"
   }
 }

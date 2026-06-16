@@ -62,5 +62,11 @@
     "installHint": "Open directly from home screen, no browser needed",
     "howToInstall": "How to Install",
     "storageUsed": "Storage Used"
+  },
+  "whatsNew": {
+    "title": "What's New in FreeKasir",
+    "slide": "Slide {{number}}",
+    "finish": "Done",
+    "skip": "Skip"
   }
 }

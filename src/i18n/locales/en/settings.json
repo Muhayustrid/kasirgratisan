@@ -1,0 +1,212 @@
+{
+  "title": "Settings",
+  "storeFallback": "My Store",
+  "notSet": "Not set",
+  "cloudSync": {
+    "title": "Cloud Sync",
+    "status": {
+      "inactive": "INACTIVE",
+      "selectStore": "SELECT STORE",
+      "needsSetup": "NEEDS SETUP",
+      "active": "ACTIVE"
+    },
+    "desc": {
+      "inactive": "Activate Cloud Sync to monitor store reports in real-time on dashboard.freekasir.com — access from any device, data is safe even if the device is lost or replaced.",
+      "selectStore": "Subscription is active, but the device hasn't been linked to a store. Select a store to sync data.",
+      "needsSetup": "Store is linked, but automatic sync isn't enabled yet. Set up a schedule so data syncs regularly.",
+      "active": "Sync is active. Monitor store reports in real-time on dashboard.freekasir.com from any device."
+    },
+    "lastSync": "Last sync: {{time}}",
+    "neverSynced": "Never synced"
+  },
+  "installApp": {
+    "title": "Install as App",
+    "hint": "Open directly from home screen, no browser needed",
+    "installButton": "Install",
+    "installSuccess": "FreeKasir installed successfully!",
+    "helpButton": "How to Install"
+  },
+  "installHelp": {
+    "title": "How to Install the App",
+    "description": "Your browser doesn't show the automatic install button. Follow the steps below for your device.",
+    "iosStep1": "Open this app in <strong>Safari</strong> browser (not Chrome).",
+    "iosStep2": "Tap the <0 /> <strong>Share</strong> button at the bottom of the screen.",
+    "iosStep3": "Select <strong>\"Add to Home Screen\"</strong>, then tap <strong>Add</strong>.",
+    "androidStep1": "Open this app in <strong>Chrome</strong> or <strong>Edge</strong> browser.",
+    "androidStep2": "Tap the <strong>(⋮)</strong> menu in the top-right corner of the browser.",
+    "androidStep3": "Select <strong>\"Install app\"</strong> or <strong>\"Add to Home screen\"</strong>.",
+    "troubleshoot": "If the option doesn't appear, refresh the page first and try again. Some browsers need a second visit before offering to install."
+  },
+  "employees": {
+    "sectionTitle": "Employees & Access",
+    "owner": "Owner",
+    "staff": "Staff",
+    "logout": "Logout",
+    "activate": {
+      "title": "Activate Multi-User",
+      "description": "Create employee accounts with limited access. Your data stays secure.",
+      "button": "Activate"
+    },
+    "manage": {
+      "title": "Manage Employees",
+      "description": "{{count}} registered accounts · manage access per employee"
+    },
+    "active": {
+      "title": "Multi-User Active",
+      "description": "Staff must login to access the cashier",
+      "disable": "Disable"
+    },
+    "activateDialog": {
+      "title": "Activate Multi-User",
+      "description": "Create an owner account. After activation, you'll need to login with this username & PIN every time you open the app. Your store data stays intact.",
+      "nameLabel": "Your Name",
+      "namePlaceholder": "e.g. John Doe",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "e.g. owner",
+      "usernameHint": "3-20 characters, letters/numbers/underscore. Cannot be changed.",
+      "pinLabel": "PIN",
+      "pinPlaceholder": "4-6 digit number",
+      "pinConfirmLabel": "Confirm PIN",
+      "pinConfirmPlaceholder": "Re-enter PIN",
+      "warningTitle": "Important:",
+      "warningText": "Keep your username & PIN safe. If you forget, the only way to reset is by clearing app data (store data will also be deleted). Make sure you have a backup.",
+      "submitting": "Activating…",
+      "submit": "Activate Multi-User"
+    },
+    "disableDialog": {
+      "title": "Disable Multi-User?",
+      "description": "The app will return to no-login mode. Employee accounts will be kept and will be active again if multi-user is re-enabled. Transaction data stays intact.",
+      "confirm": "Disable"
+    },
+    "logoutDialog": {
+      "title": "Log Out?",
+      "description": "You will be directed to the login page. Make sure there are no open bills unsaved.",
+      "confirm": "Logout"
+    }
+  },
+  "transactionsAndStock": {
+    "sectionTitle": "Transactions & Stock",
+    "transactionHistory": {
+      "title": "Transaction History",
+      "description": "View all transactions & reprint receipts"
+    },
+    "supplier": {
+      "title": "Suppliers",
+      "description": "Manage supplier data"
+    },
+    "customers": {
+      "title": "Customers",
+      "description": "Manage customer data"
+    },
+    "debts": {
+      "title": "Debt List",
+      "description": "{{count}} unpaid debts"
+    },
+    "stockIn": {
+      "title": "Stock In",
+      "description": "Record incoming stock & auto COGS"
+    },
+    "stockOut": {
+      "title": "Stock Out",
+      "description": "Record non-sales outgoing stock"
+    },
+    "expenses": {
+      "title": "Expenses",
+      "description": "Record non-stock operational costs (electricity, salary, rent, etc.)"
+    },
+    "stockReport": {
+      "title": "Stock Report",
+      "description": "View stock movements per period"
+    }
+  },
+  "masterData": {
+    "sectionTitle": "Master Data & Preferences",
+    "allowDebt": {
+      "title": "Allow Debt",
+      "description": "Cashier can accept partial or full payment as debt"
+    },
+    "paymentMethods": {
+      "title": "Payment Methods",
+      "description": "{{count}} methods · cash, transfer, e-wallet, qris"
+    },
+    "productCategory": {
+      "title": "Product Categories",
+      "description": "{{count}} categories"
+    },
+    "expenseCategory": {
+      "title": "Expense Categories",
+      "description": "{{count}} categories"
+    },
+    "units": {
+      "title": "Units",
+      "description": "{{count}} units · pcs, kg, serving, etc."
+    },
+    "theme": {
+      "title": "Theme Color",
+      "description": "Customize the app accent color"
+    },
+    "backup": {
+      "title": "Backup & Restore",
+      "description": "Export / import store data (JSON)"
+    }
+  },
+  "bluetoothPrinter": {
+    "title": "Bluetooth Printer",
+    "default": "Default Printer",
+    "notSelected": "Not selected — receipts will be printed to the first paired printer found.",
+    "search": "Search for Paired Printers",
+    "searching": "Searching...",
+    "selectPrinter": "Select printer:",
+    "unnamed": "Unnamed",
+    "hint": "Make sure the printer is paired via Android Bluetooth Settings first."
+  },
+  "privacyAnalytics": {
+    "title": "Privacy & Analytics",
+    "label": "Help Us with Anonymous Data",
+    "description": "Send anonymous usage statistics (pages visited & actions like creating products/transactions) to help development. Business data such as product names, prices, and transaction amounts are never sent.",
+    "enabled": "Analytics enabled",
+    "disabled": "Analytics disabled"
+  },
+  "language": {
+    "title": "Language / Bahasa"
+  },
+  "about": {
+    "appName": "FreeKasir",
+    "tagline": "Free POS for Indonesian MSMEs 🇮🇩",
+    "version": "v{{version}} • Data stored on device",
+    "whatsNew": "What's New in FreeKasir",
+    "requestFeature": "💡 Request Feature",
+    "donate": "☕ Buy Developer a Coffee",
+    "telegram": "💬 Join Telegram Group",
+    "storageUsed": "Storage Used"
+  },
+  "storeDialog": {
+    "title": "Store Info",
+    "logoLabel": "Store Logo",
+    "logoPreviewAlt": "Logo",
+    "logoChange": "Change Logo",
+    "logoSelect": "Select Logo",
+    "logoRemove": "Remove Logo",
+    "storeName": "Store Name",
+    "address": "Address",
+    "phone": "Phone",
+    "saveSuccess": "Store info saved"
+  },
+  "toast": {
+    "noPairedDevices": "No paired Bluetooth devices",
+    "loadPrintersFailed": "Failed to load printer list",
+    "printerDefaultSet": "Default printer: {{name}}",
+    "printerDefaultCleared": "Default printer removed",
+    "debtEnabled": "Debt payments allowed",
+    "debtDisabled": "Debt payments disabled",
+    "invalidImage": "File must be an image",
+    "processImageFailed": "Failed to process image",
+    "nameRequired": "Owner name is required",
+    "usernameInvalid": "Username 3-20 characters, letters/numbers/underscore only",
+    "pinInvalid": "PIN must be 4-6 digits",
+    "pinMismatch": "PIN confirmation does not match",
+    "createOwnerFailed": "Failed to create owner account",
+    "multiUserEnabled": "Multi-user enabled. You are logged in as owner.",
+    "multiUserDisabled": "Multi-user disabled"
+  }
+}
