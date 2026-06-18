@@ -685,7 +685,7 @@ class PosDatabase extends Dexie {
       debts:             '++id, &transactionId, customerId, status, createdAt',
       debtPayments:      '++id, debtId, date, paymentMethodId, createdBy',
       stockOpnames:      '++id, date, status, createdBy',
-      stockOpnameItems:  '++id, opnameId, productId',
+      stockOpnameItems:  '++id, opnameId, productId, [opnameId+productId]',
     });
   }
 }
