@@ -147,6 +147,10 @@
       "placeholder": "Contoh: Terima kasih atas kunjungan Anda!",
       "saveSuccess": "Footer struk disimpan"
     },
+    "stockOpname": {
+      "title": "Stock Opname",
+      "description": "Sesuaikan stok fisik produk dan catat selisihnya"
+    },
     "theme": {
       "title": "Warna Tema",
       "description": "Sesuaikan warna aksen aplikasi",
@@ -720,6 +724,7 @@
       "expired": "Kadaluarsa",
       "returnSupplier": "Retur ke Supplier",
       "ownUse": "Pemakaian Sendiri",
+      "opname": "Stock Opname",
       "other": "Lainnya"
     },
     "toast": {
@@ -828,6 +833,7 @@
       "return": "Retur",
       "expired": "Expired",
       "sample": "Sample",
+      "opname": "Stock Opname",
       "other": "Lainnya",
       "unit": "unit"
     },
@@ -1254,5 +1260,37 @@
     "hppLabel": "HPP terakhir:",
     "notFound": "Produk tidak ditemukan",
     "skuBarcodeNotFound": "Produk dengan SKU/Barcode \"{{code}}\" tidak ditemukan"
+  },
+  "stockOpname": {
+    "title": "Stock Opname",
+    "initButton": "Mulai Opname Baru",
+    "historyTitle": "Riwayat Stock Opname",
+    "noHistory": "Belum ada riwayat stock opname",
+    "emptyDraft": "Belum ada produk yang dilacak stoknya",
+    "differenceText": "Selisih",
+    "systemStockText": "Stok Sistem",
+    "realStockText": "Stok Fisik",
+    "status": {
+      "draft": "Draf",
+      "completed": "Selesai"
+    },
+    "excel": {
+      "downloadTemplate": "Unduh Templat Excel",
+      "uploadExcel": "Unggah Excel",
+      "uploadSuccess": "Berhasil memuat {{count}} produk dari Excel",
+      "uploadError": "Format file tidak valid atau gagal membaca data Excel"
+    },
+    "dialog": {
+      "submitTitle": "Selesaikan Stock Opname?",
+      "submitDescription": "Saldo stok di sistem akan disesuaikan secara permanen sesuai dengan input stok fisik Anda. Selisih akan dicatat ke dalam mutasi stok.",
+      "submitConfirm": "Selesaikan",
+      "submitCancel": "Batal"
+    },
+    "toast": {
+      "draftStarted": "Sesi opname baru berhasil dimulai",
+      "saved": "Stock opname berhasil diselesaikan",
+      "saveFailed": "Gagal menyelesaikan stock opname",
+      "notesPlaceholder": "Catatan sesi opname (opsional)"
+    }
   }
 }

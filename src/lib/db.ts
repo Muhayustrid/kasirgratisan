@@ -114,10 +114,27 @@ export interface StockOut {
   id?: number;
   productId: number;
   quantity: number;
-  reason: string; // rusak, hilang, retur, dll
+  reason: string; // rusak, hilang, retur, opname, dll
   date: Date;
   notes: string;
   createdBy?: number; // userId
+}
+
+export interface StockOpname {
+  id?: number;
+  date: Date;
+  status: 'draft' | 'completed';
+  notes?: string;
+  createdBy?: number; // userId
+}
+
+export interface StockOpnameItem {
+  id?: number;
+  opnameId: number;
+  productId: number;
+  systemStock: number;
+  realStock: number;
+  difference: number;
 }
 
 export interface HppHistory {
@@ -273,6 +290,8 @@ class PosDatabase extends Dexie {
   expenses!: Table<Expense>;
   debts!: Table<Debt>;
   debtPayments!: Table<DebtPayment>;
+  stockOpnames!: Table<StockOpname>;
+  stockOpnameItems!: Table<StockOpnameItem>;
 
   constructor() {
     super('kasirgratisan-db');
@@ -644,6 +663,29 @@ class PosDatabase extends Dexie {
       expenses:          '++id, date, categoryId, paymentMethodId, createdBy, isDeleted',
       debts:             '++id, &transactionId, customerId, status, createdAt',
       debtPayments:      '++id, debtId, date, paymentMethodId, createdBy',
+    });
+
+    // Version 13 - Add StockOpname tables.
+    this.version(13).stores({
+      categories:        '++id, name, isDeleted',
+      products:          '++id, name, &sku, categoryId, barcode, isDeleted, createdBy, updatedBy, unit',
+      suppliers:         '++id, name, isDeleted',
+      customers:         '++id, name, isDeleted',
+      stockIns:          '++id, productId, supplierId, date, createdBy',
+      stockOuts:         '++id, productId, date, createdBy',
+      hppHistory:        '++id, productId, date',
+      paymentMethods:    '++id, name, category',
+      transactions:      '++id, date, &receiptNumber, paymentMethodId, status, orderNumber, createdBy',
+      transactionItems:  '++id, transactionId, productId',
+      storeSettings:     '++id',
+      units:             '++id, &name, isDeleted',
+      users:             '++id, &username, role, isActive',
+      expenseCategories: '++id, name, isDeleted',
+      expenses:          '++id, date, categoryId, paymentMethodId, createdBy, isDeleted',
+      debts:             '++id, &transactionId, customerId, status, createdAt',
+      debtPayments:      '++id, debtId, date, paymentMethodId, createdBy',
+      stockOpnames:      '++id, date, status, createdBy',
+      stockOpnameItems:  '++id, opnameId, productId',
     });
   }
 }

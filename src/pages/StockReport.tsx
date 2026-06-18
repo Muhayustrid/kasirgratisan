@@ -95,6 +95,7 @@ export default function StockReport() {
       retur: 'return',
       expired: 'expired',
       sample: 'sample',
+      opname: 'opname',
       lain: 'other',
     };
     return t(`stockReport.reasons.${keyMap[reason] ?? 'other'}`, reason);

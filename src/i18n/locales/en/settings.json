@@ -147,6 +147,10 @@
       "placeholder": "Example: Thank you for your visit!",
       "saveSuccess": "Receipt footer saved"
     },
+    "stockOpname": {
+      "title": "Stock Opname",
+      "description": "Adjust physical product stocks and record differences"
+    },
     "theme": {
       "title": "Theme Color",
       "description": "Customize the app accent color",
@@ -720,6 +724,7 @@
       "expired": "Expired",
       "returnSupplier": "Return to Supplier",
       "ownUse": "Own Use",
+      "opname": "Stock Opname",
       "other": "Other"
     },
     "toast": {
@@ -828,6 +833,7 @@
       "return": "Return",
       "expired": "Expired",
       "sample": "Sample",
+      "opname": "Stock Opname",
       "other": "Other",
       "unit": "unit"
     },
@@ -1255,5 +1261,37 @@
     "hppLabel": "Last COGS:",
     "notFound": "Product not found",
     "skuBarcodeNotFound": "Product with SKU/Barcode \"{{code}}\" not found"
+  },
+  "stockOpname": {
+    "title": "Stock Opname",
+    "initButton": "Start New Opname",
+    "historyTitle": "Stock Opname History",
+    "noHistory": "No stock opname history yet",
+    "emptyDraft": "No products are currently tracked for stock",
+    "differenceText": "Difference",
+    "systemStockText": "System Stock",
+    "realStockText": "Physical Stock",
+    "status": {
+      "draft": "Draft",
+      "completed": "Completed"
+    },
+    "excel": {
+      "downloadTemplate": "Download Excel Template",
+      "uploadExcel": "Upload Excel",
+      "uploadSuccess": "Successfully loaded {{count}} products from Excel",
+      "uploadError": "Invalid file format or failed to read Excel data"
+    },
+    "dialog": {
+      "submitTitle": "Complete Stock Opname?",
+      "submitDescription": "Product stock balances in the system will be permanently updated to match your physical stock count. The differences will be recorded in stock movements.",
+      "submitConfirm": "Complete",
+      "submitCancel": "Cancel"
+    },
+    "toast": {
+      "draftStarted": "New opname session started successfully",
+      "saved": "Stock opname completed successfully",
+      "saveFailed": "Failed to complete stock opname",
+      "notesPlaceholder": "Opname session notes (optional)"
+    }
   }
 }

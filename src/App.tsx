@@ -37,6 +37,7 @@ import ExpenseCategoriesSettings from "./pages/settings/ExpenseCategoriesSetting
 import UnitsSettings from "./pages/settings/UnitsSettings";
 import ThemeSettings from "./pages/settings/ThemeSettings";
 import ReceiptSettings from "./pages/settings/ReceiptSettings";
+import StockOpname from "./pages/settings/StockOpname";
 import BackupRestoreSettings from "./pages/settings/BackupRestoreSettings";
 import CloudBackupSettings from "./pages/settings/CloudBackupSettings";
 import CloudAutoBackupSettings from "./pages/settings/CloudAutoBackupSettings";
@@ -234,6 +235,14 @@ const App = () => {
                     element={
                       <ErrorBoundary>
                         <ReceiptSettings />
+                      </ErrorBoundary>
+                    }
+                  />
+                  <Route
+                    path="/settings/stock-opname"
+                    element={
+                      <ErrorBoundary>
+                        <StockOpname />
                       </ErrorBoundary>
                     }
                   />

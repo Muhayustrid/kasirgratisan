@@ -112,6 +112,10 @@
       "placeholder": "Contoh: Terima kasih atas kunjungan anda!",
       "saveSuccess": "Footer resit disimpan"
     },
+    "stockOpname": {
+      "title": "Stock Opname",
+      "description": "Laraskan stok fizikal produk dan rekod perbezaan"
+    },
     "theme": {
       "title": "Warna Tema",
       "description": "Sesuaikan warna aksen aplikasi",
@@ -804,5 +808,37 @@
     "hppLabel": "HPP terakhir:",
     "notFound": "Produk tidak ditemui",
     "skuBarcodeNotFound": "Produk dengan SKU/Barcode \"{{code}}\" tidak ditemui"
+  },
+  "stockOpname": {
+    "title": "Stock Opname",
+    "initButton": "Mula Opname Baru",
+    "historyTitle": "Sejarah Stock Opname",
+    "noHistory": "Belum ada sejarah stock opname",
+    "emptyDraft": "Tiada produk yang dikesan untuk stok",
+    "differenceText": "Perbezaan",
+    "systemStockText": "Stok Sistem",
+    "realStockText": "Stok Fizikal",
+    "status": {
+      "draft": "Draf",
+      "completed": "Selesai"
+    },
+    "excel": {
+      "downloadTemplate": "Muat Turun Templat Excel",
+      "uploadExcel": "Muat Naik Excel",
+      "uploadSuccess": "Berjaya memuatkan {{count}} produk dari Excel",
+      "uploadError": "Format fail tidak sah atau gagal membaca data Excel"
+    },
+    "dialog": {
+      "submitTitle": "Selesaikan Stock Opname?",
+      "submitDescription": "Baki stok produk dalam sistem akan dikemas kini secara kekal sepadan dengan kiraan stok fizikal anda. Perbezaan akan direkodkan dalam pergerakan stok.",
+      "submitConfirm": "Selesaikan",
+      "submitCancel": "Batal"
+    },
+    "toast": {
+      "draftStarted": "Sesi opname baru berjaya dimulakan",
+      "saved": "Stock opname berjaya diselesaikan",
+      "saveFailed": "Gagal menyelesaikan stock opname",
+      "notesPlaceholder": "Nota sesi opname (pilihan)"
+    }
   }
 }
