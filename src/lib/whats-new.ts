@@ -29,6 +29,16 @@ export interface WhatsNewFeature {
 
 export const FEATURES: WhatsNewFeature[] = [
   {
+    id: '2026-06-import-excel',
+    title: 'Impor Produk via Excel',
+    description:
+      'Kini kamu bisa menambahkan produk baru secara massal menggunakan file Excel (.xlsx) dengan alur validasi. Unduh template standar yang dilengkapi referensi kategori & satuan, unggah berkas, tinjau status data (valid atau error) di preview, lalu simpan seluruh produk valid sekaligus.',
+    icon: FileSpreadsheet,
+    iconColor: 'text-success bg-success/10',
+    publishedAt: '2026-06-20',
+    cta: { label: 'Atur Produk', to: '/products' },
+  },
+  {
     id: '2026-06-stock-opname',
     title: 'Stock Opname (Penyesuaian Stok)',
     description:

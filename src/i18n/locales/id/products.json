@@ -85,5 +85,33 @@
     "securityBlocked": "Akses kamera diblokir karena alasan keamanan. Pastikan aplikasi diakses via HTTPS.",
     "accessFailed": "Gagal mengakses kamera ({{name}}).",
     "startFailed": "Gagal memulai scanner ({{name}}). Coba tutup dan buka kembali."
+  },
+  "excel": {
+    "importButton": "Impor Excel",
+    "downloadTemplate": "Unduh Template",
+    "dialogTitle": "Impor Produk via Excel",
+    "step1": "1. Unduh Template Excel",
+    "step1Desc": "Gunakan file template standar agar data produk terbaca dengan benar oleh sistem.",
+    "step2": "2. Unggah File Excel",
+    "step2Desc": "Pilih file Excel (.xlsx) yang telah diisi dengan data produk (Maks. 100 baris).",
+    "selectFile": "Pilih File",
+    "dragDrop": "Seret & taruh file Excel (.xlsx) di sini, atau klik untuk memilih",
+    "rowLimitWarning": "Perhatian: File memiliki lebih dari 100 baris. Hanya 100 baris pertama yang akan diproses.",
+    "summary": "Menampilkan {{total}} baris: {{valid}} valid, {{invalid}} error.",
+    "row": "Baris",
+    "status": "Status",
+    "errorSkuDupExcel": "SKU duplikat dalam file Excel",
+    "errorSkuDupDb": "SKU sudah digunakan di database (produk aktif atau terhapus)",
+    "errorCatNotFound": "Kategori tidak ditemukan",
+    "errorUnitNotFound": "Satuan tidak ditemukan",
+    "errorNameRequired": "Nama produk wajib diisi",
+    "errorSkuRequired": "SKU wajib diisi",
+    "errorPriceInvalid": "Harga jual harus berupa angka >= 0",
+    "errorHppInvalid": "Harga modal (HPP) harus berupa angka >= 0",
+    "errorStockInvalid": "Stok awal harus berupa angka >= 0",
+    "btnProceedValid": "Lanjutkan & Simpan {{count}} Produk",
+    "btnReupload": "Upload Ulang",
+    "btnCancel": "Batal",
+    "toastSuccess": "Berhasil mengimpor {{count}} produk baru."
   }
 }

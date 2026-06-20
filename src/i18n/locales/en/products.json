@@ -85,5 +85,33 @@
     "securityBlocked": "Camera access blocked for security reasons. Make sure the app is accessed via HTTPS.",
     "accessFailed": "Failed to access camera ({{name}}).",
     "startFailed": "Failed to start scanner ({{name}}). Try closing and reopening."
+  },
+  "excel": {
+    "importButton": "Import Excel",
+    "downloadTemplate": "Download Template",
+    "dialogTitle": "Import Products via Excel",
+    "step1": "1. Download Excel Template",
+    "step1Desc": "Use our standard template file so your product data can be parsed correctly by the system.",
+    "step2": "2. Upload Excel File",
+    "step2Desc": "Select the Excel file (.xlsx) filled with product data (Max. 100 rows).",
+    "selectFile": "Select File",
+    "dragDrop": "Drag & drop Excel file (.xlsx) here, or click to browse",
+    "rowLimitWarning": "Warning: File has more than 100 rows. Only the first 100 rows will be processed.",
+    "summary": "Showing {{total}} rows: {{valid}} valid, {{invalid}} error.",
+    "row": "Row",
+    "status": "Status",
+    "errorSkuDupExcel": "Duplicate SKU within the Excel file",
+    "errorSkuDupDb": "SKU already exists in database (active or deleted product)",
+    "errorCatNotFound": "Category not found",
+    "errorUnitNotFound": "Unit not found",
+    "errorNameRequired": "Product name is required",
+    "errorSkuRequired": "SKU is required",
+    "errorPriceInvalid": "Selling price must be a number >= 0",
+    "errorHppInvalid": "COGS must be a number >= 0",
+    "errorStockInvalid": "Initial stock must be a number >= 0",
+    "btnProceedValid": "Proceed & Save {{count}} Products",
+    "btnReupload": "Upload Again",
+    "btnCancel": "Cancel",
+    "toastSuccess": "Successfully imported {{count}} new products."
   }
 }
