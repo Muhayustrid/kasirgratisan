@@ -1015,6 +1015,9 @@
     },
     "buttons": {
       "saveBill": "Simpan Bill",
+      "saveAndPrintKitchen": "Simpan & Cetak Kitchen Ticket",
+      "saveOnly": "Simpan Saja",
+      "printKitchen": "Cetak Kitchen Ticket",
       "pay": "Bayar",
       "cancelBill": "Batalkan Bill Ini",
       "ok": "OK",
@@ -1088,6 +1091,10 @@
       "continue": "Lanjutkan",
       "cancel": "Batal",
       "tablePrefix": "Meja {{number}}"
+    },
+    "saveConfirmDialog": {
+      "title": "Simpan Bill",
+      "description": "Apakah Anda ingin mencetak Kitchen Ticket setelah menyimpan bill ini?"
     },
     "cancelDialog": {
       "title": "Batalkan Bill?",
@@ -1398,5 +1405,9 @@
       "tooLarge": "Ukuran berkas melebihi batas 2 MB.",
       "invalidType": "Jenis berkas tidak didukung. Harap gunakan format JPG, PNG, atau WebP."
     }
+  },
+  "kitchenTicket": {
+    "title": "Kitchen Ticket",
+    "done": "Selesai"
   }
 }

@@ -1016,6 +1016,9 @@
     },
     "buttons": {
       "saveBill": "Save Bill",
+      "saveAndPrintKitchen": "Save & Print Kitchen Ticket",
+      "saveOnly": "Save Only",
+      "printKitchen": "Print Kitchen Ticket",
       "pay": "Pay",
       "cancelBill": "Cancel This Bill",
       "ok": "OK",
@@ -1089,6 +1092,10 @@
       "continue": "Continue",
       "cancel": "Cancel",
       "tablePrefix": "Table {{number}}"
+    },
+    "saveConfirmDialog": {
+      "title": "Save Bill",
+      "description": "Would you like to print a Kitchen Ticket after saving this bill?"
     },
     "cancelDialog": {
       "title": "Cancel Bill?",
@@ -1399,5 +1406,9 @@
       "tooLarge": "File size exceeds the 2 MB limit.",
       "invalidType": "Invalid file type. Please use JPG, PNG, or WebP images."
     }
+  },
+  "kitchenTicket": {
+    "title": "Kitchen Ticket",
+    "done": "Done"
   }
 }

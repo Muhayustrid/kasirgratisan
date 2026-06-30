@@ -569,6 +569,9 @@
     },
     "buttons": {
       "saveBill": "Simpan Bil",
+      "saveAndPrintKitchen": "Simpan & Cetak Tiket Dapur",
+      "saveOnly": "Simpan Sahaja",
+      "printKitchen": "Cetak Tiket Dapur",
       "pay": "Bayar",
       "cancelBill": "Batalkan Bil Ini",
       "ok": "OK",
@@ -642,6 +645,10 @@
       "continue": "Teruskan",
       "cancel": "Batal",
       "tablePrefix": "Meja {{number}}"
+    },
+    "saveConfirmDialog": {
+      "title": "Simpan Bil",
+      "description": "Adakah anda ingin mencetak Tiket Dapur selepas menyimpan bil ini?"
     },
     "cancelDialog": {
       "title": "Batalkan Bil?",
@@ -952,5 +959,9 @@
       "tooLarge": "Saiz fail melebihi had 2 MB.",
       "invalidType": "Jenis fail tidak sah. Sila gunakan imej JPG, PNG, atau WebP."
     }
+  },
+  "kitchenTicket": {
+    "title": "Tiket Dapur",
+    "done": "Selesai"
   }
 }

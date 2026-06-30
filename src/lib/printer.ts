@@ -432,3 +432,58 @@ export const printNativeBluetooth = async (
 
   return printRawNativeBluetooth(textBytes, toast);
 };
+
+export const getKitchenTicketESCPOSData = ({
+  transaction,
+  items,
+  cashierName,
+}: {
+  transaction: Transaction;
+  items: TransactionItemRecord[];
+  cashierName?: string;
+}): string => {
+  const lines: string[] = [];
+  
+  lines.push('\x1B\x61\x01'); // Center align
+  lines.push('\x1B\x21\x10'); // Double height text
+  lines.push('KITCHEN TICKET\n');
+  lines.push('\x1B\x21\x00'); // Reset text size
+  lines.push('--------------------------------\n');
+  lines.push(`No: ${transaction.receiptNumber}\n`);
+  lines.push(`Waktu: ${format(new Date(transaction.date), 'dd/MM/yyyy HH:mm')}\n`);
+  if (cashierName) lines.push(`Kasir: ${cashierName}\n`);
+  if (transaction.customerName) lines.push(`Pelanggan: ${transaction.customerName}\n`);
+  if (transaction.tableNumber) lines.push(`Meja: ${transaction.tableNumber}\n`);
+  if (transaction.remarks) lines.push(`Catatan: ${transaction.remarks}\n`);
+  lines.push('--------------------------------\n');
+  
+  lines.push('\x1B\x61\x00'); // Left align
+  for (const item of items) {
+    const leftText = `${item.quantity}x ${item.productName}`;
+    const padding = 32 - leftText.length - 4;
+    if (padding > 0) {
+      lines.push(`${leftText}${' '.repeat(padding)} [ ]\n`);
+    } else {
+      lines.push(`${leftText}  [ ]\n`);
+    }
+    if (item.notes) lines.push(`  * Catatan: ${item.notes}\n`);
+  }
+  
+  lines.push('--------------------------------\n');
+  lines.push('\n\n\n');
+  return lines.join('');
+};
+
+export const printKitchenTicketBluetooth = async (
+  printData: {
+    transaction: Transaction;
+    items: TransactionItemRecord[];
+    cashierName?: string;
+  },
+  toast: { info: (m: string) => void; success: (m: string) => void; error: (m: string) => void }
+): Promise<boolean> => {
+  const rawText = getKitchenTicketESCPOSData(printData);
+  const textBytes = new TextEncoder().encode(rawText);
+  return printRawNativeBluetooth(textBytes, toast);
+};
+

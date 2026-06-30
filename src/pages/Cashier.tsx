@@ -1,8 +1,9 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db, isStockManaged, type Product, type Category, type Transaction, type TransactionItemRecord } from '@/lib/db';
 import { useState, useRef, useEffect } from 'react';
-import { Search, Plus, Minus, ShoppingCart, X, Percent, Tag, CreditCard, Banknote, Check, ScanBarcode, Package as PackageIcon, ClipboardList, Save, Pencil, User, Hash, Trash2, Barcode } from 'lucide-react';
+import { Search, Plus, Minus, ShoppingCart, X, Percent, Tag, CreditCard, Banknote, Check, ScanBarcode, Package as PackageIcon, ClipboardList, Save, Pencil, User, Hash, Trash2, Barcode, Printer } from 'lucide-react';
 import Receipt from '@/components/Receipt';
+import KitchenTicket from '@/components/KitchenTicket';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -97,6 +98,11 @@ export default function Kasir() {
   const [cancelTargetTx, setCancelTargetTx] = useState<Transaction | null>(null);
   const [scanInput, setScanInput] = useState('');
   const scanInputRef = useRef<HTMLInputElement>(null);
+
+  const [saveConfirmOpen, setSaveConfirmOpen] = useState(false);
+  const [kitchenTicketOpen, setKitchenTicketOpen] = useState(false);
+  const [kitchenTicketTx, setKitchenTicketTx] = useState<Transaction | null>(null);
+  const [kitchenTicketItems, setKitchenTicketItems] = useState<TransactionItemRecord[]>([]);
 
   // Cashier layout mode settings (default: 'grid')
   const [layoutMode] = useState<'grid' | 'rows'>(() => {
@@ -248,10 +254,12 @@ export default function Kasir() {
 
   // === Open Bill Operations ===
 
-  const saveOpenBill = async () => {
+  const saveOpenBill = async (shouldPrintKitchen: boolean = false) => {
     if (cart.length === 0) { toast.error(t('cashier.toast.cartEmpty')); return; }
 
     const now = new Date();
+    let savedTxObj: Transaction | null = null;
+    let savedItemsObj: TransactionItemRecord[] = [];
 
     if (editingTxId) {
       // Update existing open bill
@@ -309,6 +317,11 @@ export default function Kasir() {
 
       const updatedTx = await db.transactions.get(editingTxId);
       toast.success(t('cashier.toast.billUpdated', { receiptNumber: updatedTx?.receiptNumber }));
+
+      if (updatedTx) {
+        savedTxObj = updatedTx;
+        savedItemsObj = itemRecords;
+      }
     } else {
       const receiptNumber = `TX${Date.now()}`;
 
@@ -356,6 +369,15 @@ export default function Kasir() {
       }
 
       toast.success(t('cashier.toast.billSaved', { receiptNumber }));
+
+      savedTxObj = { ...txData, id: txId as number };
+      savedItemsObj = itemRecords;
+    }
+
+    if (shouldPrintKitchen && savedTxObj) {
+      setKitchenTicketTx(savedTxObj);
+      setKitchenTicketItems(savedItemsObj);
+      setKitchenTicketOpen(true);
     }
 
     doFullReset();
@@ -968,7 +990,7 @@ export default function Kasir() {
                 <Button
                   variant="outline"
                   className="flex-1 h-12 text-sm font-semibold"
-                  onClick={saveOpenBill}
+                  onClick={() => setSaveConfirmOpen(true)}
                   disabled={cart.length === 0}
                 >
                   <Save className="w-4 h-4 mr-2" />
@@ -1187,7 +1209,7 @@ export default function Kasir() {
                 <Button
                   variant="outline"
                   className="flex-1 h-12 text-sm font-semibold"
-                  onClick={saveOpenBill}
+                  onClick={() => setSaveConfirmOpen(true)}
                   disabled={cart.length === 0}
                 >
                   <Save className="w-4 h-4 mr-2" />
@@ -1251,20 +1273,36 @@ export default function Kasir() {
                       {bill.tableNumber && <span>🪑 {t('cashier.openBillsSheet.tablePrefix', { number: bill.tableNumber })}</span>}
                       {bill.remarks && <span className="truncate max-w-[120px]">📝 {bill.remarks}</span>}
                     </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" className="h-8 text-xs flex-1" onClick={() => loadOpenBill(bill)}>
-                        {t('cashier.openBillsSheet.continue')}
-                      </Button>
-                      {can('delete_transaction') && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="h-8 text-xs text-destructive border-destructive/30"
-                          onClick={() => handleCancelFromList(bill)}
-                        >
-                          {t('cashier.openBillsSheet.cancel')}
+                    <div className="space-y-2">
+                      <div className="flex gap-2">
+                        <Button size="sm" className="h-8 text-xs flex-1" onClick={() => loadOpenBill(bill)}>
+                          {t('cashier.openBillsSheet.continue')}
                         </Button>
-                      )}
+                        {can('delete_transaction') && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-8 text-xs text-destructive border-destructive/30"
+                            onClick={() => handleCancelFromList(bill)}
+                          >
+                            {t('cashier.openBillsSheet.cancel')}
+                          </Button>
+                        )}
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-full h-8 text-xs border-primary/30 text-primary hover:bg-primary/5 flex items-center justify-center"
+                        onClick={async () => {
+                          const items = await db.transactionItems.where('transactionId').equals(bill.id!).toArray();
+                          setKitchenTicketTx(bill);
+                          setKitchenTicketItems(items);
+                          setKitchenTicketOpen(true);
+                        }}
+                      >
+                        <Printer className="w-3.5 h-3.5 mr-1" />
+                        {t('cashier.buttons.printKitchen')}
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -1583,6 +1621,62 @@ export default function Kasir() {
               : paymentMethods?.find(pm => pm.id === lastTransaction.paymentMethodId)?.name || t('cashier.paymentMethod.cash')
           }
           cashierName={lastTransaction.createdBy ? allUsers?.find(u => u.id === lastTransaction.createdBy)?.name : undefined}
+        />
+      )}
+
+      {/* Save Bill Confirm Dialog */}
+      <Dialog open={saveConfirmOpen} onOpenChange={setSaveConfirmOpen}>
+        <DialogContent className="max-w-[95vw] md:max-w-md rounded-xl p-6">
+          <DialogHeader>
+            <DialogTitle>{t('cashier.saveConfirmDialog.title')}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 mt-2">
+            <p className="text-sm text-muted-foreground">
+              {t('cashier.saveConfirmDialog.description')}
+            </p>
+            <div className="flex flex-col gap-2">
+              <Button
+                className="w-full h-11 font-semibold"
+                onClick={async () => {
+                  setSaveConfirmOpen(false);
+                  await saveOpenBill(true);
+                }}
+              >
+                <Printer className="w-4 h-4 mr-2" />
+                {t('cashier.buttons.saveAndPrintKitchen')}
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full h-11 font-semibold"
+                onClick={async () => {
+                  setSaveConfirmOpen(false);
+                  await saveOpenBill(false);
+                }}
+              >
+                <Save className="w-4 h-4 mr-2" />
+                {t('cashier.buttons.saveOnly')}
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full h-11 text-muted-foreground"
+                onClick={() => setSaveConfirmOpen(false)}
+              >
+                {t('cashier.buttons.cancel')}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Kitchen Ticket Dialog */}
+      {kitchenTicketTx && (
+        <KitchenTicket
+          open={kitchenTicketOpen}
+          onClose={() => setKitchenTicketOpen(false)}
+          transaction={kitchenTicketTx}
+          items={kitchenTicketItems}
+          storeSettings={storeSettings}
+          cashierName={kitchenTicketTx.createdBy ? allUsers?.find(u => u.id === kitchenTicketTx.createdBy)?.name : undefined}
         />
       )}
 
