@@ -176,6 +176,10 @@
     "reportIssue": {
       "title": "Laporkan Kendala",
       "description": "Laporkan error atau kendala teknis aplikasi ke developer"
+    },
+    "telegramSupport": {
+      "title": "Support Telegram",
+      "description": "Hubungi tim support FreeKasir via Telegram"
     }
   },
   "bluetoothPrinter": {

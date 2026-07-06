@@ -1,4 +1,4 @@
-import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, FileSpreadsheet, PackageSearch, Sparkles, Cloud, Printer, HandCoins, Receipt, ClipboardCheck, LayoutGrid, type LucideIcon } from 'lucide-react';
+import { Wallet, AlertTriangle, Infinity as InfinityIcon, Users as UsersIcon, FileSpreadsheet, PackageSearch, Sparkles, Cloud, Printer, HandCoins, Receipt, ClipboardCheck, LayoutGrid, Send, type LucideIcon } from 'lucide-react';
 import { db } from './db';
 
 /**
@@ -23,6 +23,13 @@ export interface WhatsNewFeature {
 }
 
 export const FEATURES: WhatsNewFeature[] = [
+  {
+    id: '2026-07-telegram-support',
+    icon: Send,
+    iconColor: 'text-sky-500 bg-sky-500/10',
+    publishedAt: '2026-07-06',
+    cta: { to: 'https://t.me/freekasir' },
+  },
   {
     id: '2026-06-join-whatsapp',
     icon: UsersIcon,

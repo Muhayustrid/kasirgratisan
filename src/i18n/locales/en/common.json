@@ -70,6 +70,11 @@
     "skip": "Skip"
   },
   "whatsNewFeatures": {
+    "2026-07-telegram-support": {
+      "title": "Telegram Support",
+      "description": "You can now contact the FreeKasir support team directly via Telegram for quick assistance, feedback, or reporting issues.",
+      "ctaLabel": "Contact Now"
+    },
     "2026-06-join-whatsapp": {
       "title": "Join Official WhatsApp Channel",
       "description": "Join the official FreeKasir WhatsApp Channel to get the latest business tips, user guides, and new feature announcements directly in your WhatsApp!",

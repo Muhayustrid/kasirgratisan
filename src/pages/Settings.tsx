@@ -743,7 +743,7 @@ export default function Pengaturan() {
         )}
 
         <Link to="/settings/report-issue" className="block">
-          <Card className="border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+          <Card className="border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow mb-2">
             <CardContent className="p-3 flex items-center gap-3">
               <div className="w-9 h-9 rounded-lg bg-warning/10 text-warning flex items-center justify-center">
                 <Send className="w-4 h-4" />
@@ -756,6 +756,21 @@ export default function Pengaturan() {
             </CardContent>
           </Card>
         </Link>
+
+        <a href="https://t.me/freekasir" target="_blank" rel="noopener noreferrer" className="block">
+          <Card className="border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+            <CardContent className="p-3 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+                <Send className="w-4 h-4" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold">{t('masterData.telegramSupport.title')}</p>
+                <p className="text-[10px] text-muted-foreground">{t('masterData.telegramSupport.description')}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </CardContent>
+          </Card>
+        </a>
       </div>
 
       {/* Bluetooth Printer (APK only) */}

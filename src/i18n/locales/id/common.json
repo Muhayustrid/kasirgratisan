@@ -70,6 +70,11 @@
     "skip": "Lewati"
   },
   "whatsNewFeatures": {
+    "2026-07-telegram-support": {
+      "title": "Support Telegram",
+      "description": "Kini Anda dapat menghubungi tim support FreeKasir langsung via Telegram untuk bantuan cepat, saran, atau laporan kendala.",
+      "ctaLabel": "Hubungi Sekarang"
+    },
     "2026-06-join-whatsapp": {
       "title": "Gabung WhatsApp Channel Resmi",
       "description": "Bergabunglah dengan WhatsApp Channel resmi FreeKasir untuk mendapatkan informasi tips bisnis terbaru, panduan penggunaan, serta pengumuman update fitur langsung di WhatsApp-mu!",

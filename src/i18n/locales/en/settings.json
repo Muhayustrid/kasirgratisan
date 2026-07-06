@@ -176,6 +176,10 @@
     "reportIssue": {
       "title": "Report Issue",
       "description": "Report application errors or technical issues to the developer"
+    },
+    "telegramSupport": {
+      "title": "Telegram Support",
+      "description": "Contact FreeKasir support team via Telegram"
     }
   },
   "bluetoothPrinter": {
