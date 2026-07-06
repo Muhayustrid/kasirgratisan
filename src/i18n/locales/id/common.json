@@ -70,6 +70,16 @@
     "skip": "Lewati"
   },
   "whatsNewFeatures": {
+    "2026-07-telegram-support": {
+      "title": "Support Telegram",
+      "description": "Kini Anda dapat menghubungi tim support FreeKasir langsung via Telegram untuk bantuan cepat, saran, atau laporan kendala.",
+      "ctaLabel": "Hubungi Sekarang"
+    },
+    "2026-06-join-whatsapp": {
+      "title": "Gabung WhatsApp Channel Resmi",
+      "description": "Bergabunglah dengan WhatsApp Channel resmi FreeKasir untuk mendapatkan informasi tips bisnis terbaru, panduan penggunaan, serta pengumuman update fitur langsung di WhatsApp-mu!",
+      "ctaLabel": "Gabung Sekarang"
+    },
     "2026-06-kitchen-ticket": {
       "title": "Cetak Kitchen Ticket",
       "description": "Kini kamu bisa mencetak Kitchen Ticket (pesanan tanpa nominal/harga) langsung saat menyimpan bill atau dari daftar Open Bill. Dilengkapi dengan kotak kosong di sebelah kanan setiap item untuk checklist manual oleh bagian dapur.",

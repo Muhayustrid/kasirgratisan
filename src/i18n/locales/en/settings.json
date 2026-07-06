@@ -172,6 +172,14 @@
       "description": "Choose grid (cards) or rows (list) layout for product list",
       "grid": "Grid (Large Cards)",
       "rows": "Rows (Simple List)"
+    },
+    "reportIssue": {
+      "title": "Report Issue",
+      "description": "Report application errors or technical issues to the developer"
+    },
+    "telegramSupport": {
+      "title": "Telegram Support",
+      "description": "Contact FreeKasir support team via Telegram"
     }
   },
   "bluetoothPrinter": {
