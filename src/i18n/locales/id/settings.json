@@ -18,10 +18,10 @@
       "active": "AKTIF"
     },
     "desc": {
-      "inactive": "Data aman di cloud, akses dashboard.freekasir.com, dan hubungkan tokomu ke market.freekasir.com!",
+      "inactive": "Data aman di cloud, akses dashboard, dan hubungkan tokomu ke marketplace!",
       "selectStore": "Langganan aktif, tapi perangkat belum terhubung ke toko. Pilih toko agar data bisa disinkronkan.",
       "needsSetup": "Toko sudah terhubung, tapi sinkronisasi otomatis belum dinyalakan. Atur jadwalnya agar data tersinkron rutin.",
-      "active": "Sinkronisasi aktif. Pantau laporan toko real-time di dashboard.freekasir.com dari perangkat mana saja."
+      "active": "Sinkronisasi aktif. Pantau laporan toko real-time di dashboard dari perangkat mana saja."
     },
     "lastSync": "Terakhir sync: {{time}}",
     "neverSynced": "Belum pernah disinkronkan"
@@ -172,10 +172,6 @@
       "description": "Pilih mode grid (kartu) atau baris (list) untuk daftar produk",
       "grid": "Grid (Kartu Besar)",
       "rows": "Baris (Simpel)"
-    },
-    "reportIssue": {
-      "title": "Laporkan Kendala",
-      "description": "Laporkan error atau kendala teknis aplikasi ke developer"
     }
   },
   "bluetoothPrinter": {
@@ -247,7 +243,7 @@
     "promo": {
       "title": "Jangkau Lebih Banyak Pelanggan!",
       "description": "Aktifkan Toko Online agar tokomu dapat diakses secara publik dengan berbagai keuntungan:",
-      "benefit1": "Tampil di market.freekasir.com untuk menjangkau pembeli baru",
+      "benefit1": "Tampil di marketplace untuk menjangkau pembeli baru",
       "benefit2": "Pelanggan bisa lihat menu online secara real-time dari HP",
       "benefit3": "Link toko online unik milikmu sendiri",
       "button": "Lengkapi Detail Toko"
@@ -1361,7 +1357,7 @@
     },
     "visibility": {
       "title": "Tampilkan Toko di Market",
-      "description": "Aktifkan agar katalog produk toko Anda dapat dilihat secara publik di market.freekasir.com.",
+      "description": "Aktifkan agar katalog produk toko Anda dapat dilihat secara publik di marketplace.",
       "requiresIdentifier": "URL Toko harus disimpan terlebih dahulu sebelum mengaktifkan toko di market.",
       "unsavedIdentifier": "Ada perubahan URL Toko yang belum disimpan. Silakan simpan URL Toko terlebih dahulu.",
       "unsavedDetails": "Ada perubahan detail informasi toko yang belum disimpan. Silakan simpan detail toko terlebih dahulu.",

@@ -70,11 +70,6 @@
     "skip": "Lewati"
   },
   "whatsNewFeatures": {
-    "2026-06-join-whatsapp": {
-      "title": "Gabung WhatsApp Channel Resmi",
-      "description": "Bergabunglah dengan WhatsApp Channel resmi FreeKasir untuk mendapatkan informasi tips bisnis terbaru, panduan penggunaan, serta pengumuman update fitur langsung di WhatsApp-mu!",
-      "ctaLabel": "Gabung Sekarang"
-    },
     "2026-06-kitchen-ticket": {
       "title": "Cetak Kitchen Ticket",
       "description": "Kini kamu bisa mencetak Kitchen Ticket (pesanan tanpa nominal/harga) langsung saat menyimpan bill atau dari daftar Open Bill. Dilengkapi dengan kotak kosong di sebelah kanan setiap item untuk checklist manual oleh bagian dapur.",
@@ -114,11 +109,6 @@
       "title": "Backup Otomatis ke Cloud",
       "description": "Data toko kini bisa dibackup otomatis ke cloud yang aman — tetap aman walau HP hilang, rusak, atau ganti perangkat. Login dengan akun Google, pilih paket langganan, lalu atur jadwal backup otomatis. Kamu juga bisa restore data langsung dari cloud kapan saja.",
       "ctaLabel": "Aktifkan Cloud Backup"
-    },
-    "2026-06-rebrand-freekasir": {
-      "title": "Wajah Baru: FreeKasir",
-      "description": "Aplikasi ini kini bernama FreeKasir dengan tampilan dan warna baru yang lebih segar. Fungsi & data kamu tetap sama, tidak ada yang berubah. Suka warna lain? Kamu tetap bisa pilih tema favoritmu di Pengaturan → Warna Tema.",
-      "ctaLabel": "Ganti Warna Tema"
     },
     "2026-06-stock-search-scan": {
       "title": "Cari & Scan Produk di Stock In/Out",

@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
  * Token disimpan di localStorage; klaim di-decode untuk nama/email/expiry.
  */
 
-const TOKEN_KEY = 'freekasir_cloud_token_v1';
+const TOKEN_KEY = 'pos_cloud_token_v1';
 
 export interface GoogleIdClaims {
   sub: string;

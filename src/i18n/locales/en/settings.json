@@ -18,10 +18,10 @@
       "active": "ACTIVE"
     },
     "desc": {
-      "inactive": "Secure cloud data, access dashboard.freekasir.com, and list your store on market.freekasir.com!",
+      "inactive": "Secure cloud data, access dashboard, and list your store on marketplace!",
       "selectStore": "Subscription is active, but the device hasn't been linked to a store. Select a store to sync data.",
       "needsSetup": "Store is linked, but automatic sync isn't enabled yet. Set up a schedule so data syncs regularly.",
-      "active": "Sync is active. Monitor store reports in real-time on dashboard.freekasir.com from any device."
+      "active": "Sync is active. Monitor store reports in real-time on dashboard from any device."
     },
     "lastSync": "Last sync: {{time}}",
     "neverSynced": "Never synced"
@@ -172,10 +172,6 @@
       "description": "Choose grid (cards) or rows (list) layout for product list",
       "grid": "Grid (Large Cards)",
       "rows": "Rows (Simple List)"
-    },
-    "reportIssue": {
-      "title": "Report Issue",
-      "description": "Report application errors or technical issues to the developer"
     }
   },
   "bluetoothPrinter": {
@@ -247,7 +243,7 @@
     "promo": {
       "title": "Reach More Customers!",
       "description": "Activate your Online Store to make your store publicly accessible with various benefits:",
-      "benefit1": "Showcase on market.freekasir.com to reach new buyers",
+      "benefit1": "Showcase on marketplace to reach new buyers",
       "benefit2": "Customers can view your online menu in real-time from mobile",
       "benefit3": "Your own unique online store link/identifier",
       "button": "Fill Store Details"
@@ -1362,7 +1358,7 @@
     },
     "visibility": {
       "title": "Show Store in Market",
-      "description": "Enable to make your store product catalog publicly viewable at market.freekasir.com.",
+      "description": "Enable to make your store product catalog publicly viewable on marketplace.",
       "requiresIdentifier": "Store URL must be saved before making the store public.",
       "unsavedIdentifier": "There are unsaved Store URL changes. Please save the Store URL first.",
       "unsavedDetails": "There are unsaved store detail changes. Please save the store details first.",

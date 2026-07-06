@@ -18,10 +18,10 @@
       "active": "AKTIF"
     },
     "desc": {
-      "inactive": "Data selamat di cloud, akses dashboard.freekasir.com, dan hubungkan kedai ke market.freekasir.com!",
+      "inactive": "Data selamat di cloud, akses dashboard, dan hubungkan kedai ke marketplace!",
       "selectStore": "Langganan aktif, tetapi peranti belum disambungkan ke kedai. Pilih kedai untuk menyelaraskan data.",
       "needsSetup": "Kedai telah disambungkan, tetapi penyelarasan automatik belum diaktifkan. Tetapkan jadual untuk menyelaraskan data secara berkala.",
-      "active": "Penyelarasan aktif. Pantau laporan kedai secara real-time di dashboard.freekasir.com dari mana-mana peranti."
+      "active": "Penyelarasan aktif. Pantau laporan kedai secara real-time di dashboard dari mana-mana peranti."
     }
   },
   "installApp": {
@@ -143,10 +143,6 @@
       "description": "Pilih tata letak grid (kad) atau baris (senarai) untuk senarai produk",
       "grid": "Grid (Kad Besar)",
       "rows": "Baris (Senarai Ringkas)"
-    },
-    "reportIssue": {
-      "title": "Laporkan Kendala",
-      "description": "Laporkan ralat atau kendala teknikal aplikasi kepada pembangun"
     }
   },
   "bluetoothPrinter": {
@@ -218,7 +214,7 @@
     "promo": {
       "title": "Jangkau Lebih Ramai Pelanggan!",
       "description": "Aktifkan Kedai Online supaya kedai anda boleh diakses secara terbuka dengan pelbagai kelebihan:",
-      "benefit1": "Tampil di market.freekasir.com untuk menjangkau pembeli baru",
+      "benefit1": "Tampil di marketplace untuk menjangkau pembeli baru",
       "benefit2": "Pelanggan boleh melihat menu dalam talian secara real-time dari telefon",
       "benefit3": "Pautan kedai dalam talian yang unik untuk anda sendiri",
       "button": "Lengkapkan Butiran Kedai"
@@ -914,7 +910,7 @@
     },
     "visibility": {
       "title": "Pamerkan Kedai di Market",
-      "description": "Aktifkan untuk membolehkan katalog produk kedai anda dilihat secara umum di market.freekasir.com.",
+      "description": "Aktifkan untuk membolehkan katalog produk kedai anda dilihat secara umum di marketplace.",
       "requiresIdentifier": "URL Kedai mesti disimpan terlebih dahulu sebelum membolehkan kedai diakses secara umum.",
       "unsavedIdentifier": "Terdapat perubahan URL Kedai yang belum disimpan. Sila simpan URL Kedai terlebih dahulu.",
       "unsavedDetails": "Terdapat perubahan maklumat kedai yang belum disimpan. Sila simpan maklumat kedai terlebih dahulu.",

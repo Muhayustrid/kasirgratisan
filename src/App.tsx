@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { checkVersion } from "@/lib/version-check";
+
 import { initAnalytics } from "@/lib/analytics";
 import { Capacitor } from "@capacitor/core";
 import { StatusBar } from "@capacitor/status-bar";
@@ -37,7 +37,7 @@ import ExpenseCategoriesSettings from "./pages/settings/ExpenseCategoriesSetting
 import UnitsSettings from "./pages/settings/UnitsSettings";
 import ThemeSettings from "./pages/settings/ThemeSettings";
 import ReceiptSettings from "./pages/settings/ReceiptSettings";
-import IssueReport from "./pages/settings/IssueReport";
+
 import StockOpname from "./pages/settings/StockOpname";
 import BackupRestoreSettings from "./pages/settings/BackupRestoreSettings";
 import CloudBackupSettings from "./pages/settings/CloudBackupSettings";
@@ -55,7 +55,6 @@ const App = () => {
   useAppUpdate();
 
   useEffect(() => {
-    checkVersion();
     initAnalytics();
 
     if (Capacitor.isNativePlatform()) {
@@ -257,14 +256,7 @@ const App = () => {
                       </ErrorBoundary>
                     }
                   />
-                  <Route
-                    path="/settings/report-issue"
-                    element={
-                      <ErrorBoundary>
-                        <IssueReport />
-                      </ErrorBoundary>
-                    }
-                  />
+
                   <Route
                     path="/settings/stock-opname"
                     element={

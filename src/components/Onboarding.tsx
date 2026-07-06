@@ -690,25 +690,13 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             />
             <span className="text-xs text-muted-foreground leading-relaxed">
               {t('tnc.agree')}{' '}
-              <a
-                href="https://freekasir.com/terms"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-primary font-medium underline"
-              >
+              <span className="text-primary font-medium">
                 {t('tnc.terms')}
-              </a>{' '}
+              </span>{' '}
               {t('tnc.and')}{' '}
-              <a
-                href="https://freekasir.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-primary font-medium underline"
-              >
+              <span className="text-primary font-medium">
                 {t('tnc.privacy')}
-              </a>
+              </span>
               .
             </span>
           </label>

@@ -14,12 +14,12 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   error: Error | null;
   errorInfo: ErrorInfo | null;
-  showConsentOpen: boolean;
-  reporting: boolean;
+
+
 }
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  state: ErrorBoundaryState = { error: null, errorInfo: null, showConsentOpen: false, reporting: false };
+  state: ErrorBoundaryState = { error: null, errorInfo: null };
 
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
     return { error };
@@ -67,69 +67,6 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     }
   };
 
-  submitReport = async (): Promise<void> => {
-    const { error, errorInfo } = this.state;
-    if (!error) return;
-
-    this.setState({ reporting: true });
-
-    const details = [
-      `Message: ${error.message}`,
-      `Name: ${error.name}`,
-      `URL: ${window.location.href}`,
-      `User Agent: ${navigator.userAgent}`,
-      `Time: ${new Date().toISOString()}`,
-      "",
-      "Stack:",
-      error.stack ?? "(no stack)",
-      "",
-      "Component Stack:",
-      errorInfo?.componentStack ?? "(no component stack)",
-    ].join("\n");
-
-    const deviceInfo = {
-      userAgent: navigator.userAgent,
-      language: navigator.language,
-      platform: navigator.platform,
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-      devicePixelRatio: window.devicePixelRatio,
-      online: navigator.onLine,
-      url: window.location.href,
-      time: new Date().toISOString(),
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      appVersion: APP_VERSION,
-    };
-
-    try {
-      const response = await fetch("https://external-api.freekasir.com/webhook/issue-report", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          error_log: details,
-          device_info: deviceInfo,
-        }),
-      });
-
-      if (response.ok) {
-        alert(i18n.t("common:error.sendSuccess"));
-        this.setState({ showConsentOpen: false });
-        this.goHome();
-      } else {
-        alert(i18n.t("common:error.sendFailed"));
-      }
-    } catch (err) {
-      console.error("Gagal mengirim laporan:", err);
-      alert(i18n.t("common:error.networkError"));
-    } finally {
-      this.setState({ reporting: false });
-    }
-  };
-
   render(): ReactNode {
     const { error, errorInfo } = this.state;
     const { children, fallback } = this.props;
@@ -162,36 +99,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             </pre>
           </div>
 
-          <Button onClick={() => this.setState({ showConsentOpen: true })} className="w-full gap-2 h-11">
-            <Send className="h-4 w-4" />
-            {i18n.t("common:error.reportIssue")}
-          </Button>
         </div>
-
-        <AlertDialog open={this.state.showConsentOpen} onOpenChange={(open) => this.setState({ showConsentOpen: open })}>
-          <AlertDialogContent className="max-w-[90vw] rounded-xl bg-background border text-foreground">
-            <AlertDialogHeader>
-              <AlertDialogTitle>{i18n.t("common:error.reportTitle")}</AlertDialogTitle>
-              <AlertDialogDescription className="text-sm whitespace-pre-line">
-                {i18n.t("common:error.reportDescription")}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter className="flex-row justify-end gap-2 mt-4">
-              <AlertDialogCancel disabled={this.state.reporting} className="mt-0">
-                {i18n.t("common:error.cancel")}
-              </AlertDialogCancel>
-              <AlertDialogAction 
-                onClick={(e) => {
-                  e.preventDefault();
-                  this.submitReport();
-                }}
-                disabled={this.state.reporting}
-              >
-                {this.state.reporting ? i18n.t("common:error.sending") : i18n.t("common:error.agreeAndSend")}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       </div>
     );
   }

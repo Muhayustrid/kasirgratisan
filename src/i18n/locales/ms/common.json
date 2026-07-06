@@ -70,11 +70,6 @@
     "skip": "Langkau"
   },
   "whatsNewFeatures": {
-    "2026-06-join-whatsapp": {
-      "title": "Sertai Saluran WhatsApp Rasmi",
-      "description": "Sertai Saluran WhatsApp rasmi FreeKasir untuk mendapatkan maklumat tips perniagaan terkini, panduan penggunaan, serta pengumuman kemas kini ciri secara langsung di WhatsApp anda!",
-      "ctaLabel": "Sertai Sekarang"
-    },
     "2026-06-kitchen-ticket": {
       "title": "Cetak Tiket Dapur",
       "description": "Kini anda boleh mencetak Tiket Dapur (pesanan tanpa harga/jumlah) secara langsung apabila menyimpan bil atau dari senarai Bil Terbuka. Lengkap dengan kotak checklist kosong di sebelah kanan setiap item untuk ditanda secara manual oleh pihak dapur.",
@@ -114,11 +109,6 @@
       "title": "Sandaran Automatik ke Awan",
       "description": "Data kedai kini boleh disandarkan secara automatik ke awan yang selamat — kekal selamat walaupun telefon hilang, rosak, atau bertukar peranti. Log masuk dengan akaun Google, pilih pakej langganan, dan tetapkan jadual sandaran automatik. Anda juga boleh memulihkan data terus dari awan pada bila-bila masa.",
       "ctaLabel": "Aktifkan Cloud Backup"
-    },
-    "2026-06-rebrand-freekasir": {
-      "title": "Wajah Baru: FreeKasir",
-      "description": "Aplikasi ini kini dinamakan FreeKasir dengan paparan dan warna baru yang lebih segar. Fungsi & data anda kekal sama. Suka warna lain? Anda masih boleh memilih tema kegemaran anda di Tetapan → Warna Tema.",
-      "ctaLabel": "Tukar Warna Tema"
     },
     "2026-06-stock-search-scan": {
       "title": "Cari & Scan Produk di Stock In/Out",

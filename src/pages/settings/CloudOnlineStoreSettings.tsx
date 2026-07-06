@@ -264,7 +264,7 @@ export default function CloudOnlineStoreSettings() {
   useEffect(() => {
     if (store?.identifier) {
       QRCode.toDataURL(
-        `https://market.freekasir.com/stores/${store.identifier}`,
+        store.identifier,
         {
           width: 512,
           margin: 2,
@@ -991,15 +991,9 @@ export default function CloudOnlineStoreSettings() {
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide font-bold block">
                       {t('cloudOnlineStore.identifier.slugInfo')}
                     </span>
-                    <a
-                      href={`https://market.freekasir.com/stores/${store.identifier}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-primary hover:underline font-bold flex items-center gap-1"
-                    >
-                      market.freekasir.com/stores/{store.identifier}
-                      <ChevronRight className="w-3 h-3" />
-                    </a>
+                    <span className="text-xs text-primary font-bold">
+                      {store.identifier}
+                    </span>
                   </div>
 
                   <Dialog>
@@ -1041,7 +1035,7 @@ export default function CloudOnlineStoreSettings() {
                           </div>
                         )}
                         <p className="text-xs font-semibold mt-3 text-primary truncate max-w-[280px]">
-                          market.freekasir.com/stores/{store.identifier}
+                          {store.identifier}
                         </p>
                       </div>
                       <div className="flex gap-2">

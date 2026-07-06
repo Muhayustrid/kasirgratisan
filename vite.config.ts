@@ -18,11 +18,11 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "kasirgratisan-icon.png", "og-image.png"],
+      includeAssets: ["favicon.ico", "app-icon.png", "og-image.png"],
       manifest: {
-        name: "FreeKasir - POS UMKM Gratis",
-        short_name: "FreeKasir",
-        description: "Aplikasi kasir gratis untuk UMKM Indonesia. Offline & tanpa biaya.",
+        name: import.meta.env?.VITE_APP_NAME || 'MyPOS',
+        short_name: import.meta.env?.VITE_APP_SHORT_NAME || 'MyPOS',
+        description: import.meta.env?.VITE_APP_DESCRIPTION || 'Point of Sale',
         start_url: "/",
         display: "standalone",
         background_color: "#FFFFFF",
@@ -30,13 +30,13 @@ export default defineConfig(({ mode }) => ({
         orientation: "any",
         icons: [
           {
-            src: "/kasirgratisan-icon.png",
+            src: "/app-icon.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any"
           },
           {
-            src: "/kasirgratisan-icon.png",
+            src: "/app-icon.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",

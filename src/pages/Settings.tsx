@@ -358,22 +358,10 @@ export default function Pengaturan() {
                   </Button>
                 </Link>
               )}
-              <a
-                href="https://play.google.com/store/apps/details?id=com.freekasir.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="sm" className="h-8 text-xs bg-white text-indigo-700 hover:bg-indigo-50 font-semibold shadow-sm">
-                  {t('playStoreAlert.downloadButton')}
-                </Button>
-              </a>
             </div>
           </CardContent>
         </Card>
       )}
-
-      {/* Cloud Sync — featured, status-aware */}
-      {can('manage_backup') && (
         <Link to="/settings/cloud-backup" className="block mt-2">
           <Card className={`border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow overflow-hidden ring-1 ${cloudStatus.theme}`}>
             <CardContent className="p-4 flex items-center gap-3">
@@ -402,7 +390,6 @@ export default function Pengaturan() {
             </CardContent>
           </Card>
         </Link>
-      )}
 
       {/* Install as App — hidden when already installed */}
       {!isNative && !isInstalled && (
@@ -742,20 +729,7 @@ export default function Pengaturan() {
           </Link>
         )}
 
-        <Link to="/settings/report-issue" className="block">
-          <Card className="border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow">
-            <CardContent className="p-3 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-warning/10 text-warning flex items-center justify-center">
-                <Send className="w-4 h-4" />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm font-semibold">{t('masterData.reportIssue.title')}</p>
-                <p className="text-[10px] text-muted-foreground">{t('masterData.reportIssue.description')}</p>
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            </CardContent>
-          </Card>
-        </Link>
+
       </div>
 
       {/* Bluetooth Printer (APK only) */}
@@ -864,32 +838,8 @@ export default function Pengaturan() {
                    {unseenFeatures.length}
                  </span>
                )}
-             </button>
-             <a
-               href="https://kasirgratisan.fider.io"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="flex items-center justify-center gap-2 w-full h-9 rounded-lg border border-border bg-muted/50 text-xs font-semibold text-foreground hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-colors"
-             >
-               {t('about.requestFeature')}
-             </a>
-             <a
-               href="https://traktir.jipraks.com"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="flex items-center justify-center gap-2 w-full h-9 rounded-lg border border-warning/30 bg-warning/5 text-xs font-semibold text-warning hover:bg-warning/10 transition-colors"
-             >
-               {t('about.donate')}
-             </a>
-             <a
-               href="https://t.me/kasirgratisan"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="flex items-center justify-center gap-2 w-full h-9 rounded-lg border border-sky-500/30 bg-sky-500/5 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:bg-sky-500/10 transition-colors"
-             >
-               {t('about.telegram')}
-             </a>
-           </div>
+               </button>
+            </div>
            {storageUsage && (
              <div className="pt-2 border-t">
                <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mb-1.5">

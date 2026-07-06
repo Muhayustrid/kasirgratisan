@@ -426,14 +426,6 @@ export default function CloudBackupSettings() {
             </CardContent>
           </Card>
 
-          <a
-            href="https://dashboard.freekasir.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-center text-[11px] font-medium text-primary"
-          >
-            {t('cloudBackup.previewDashboard', { dashboard: 'dashboard.freekasir.com' })}
-          </a>
         </div>
       ) : (
         <>
@@ -598,14 +590,6 @@ export default function CloudBackupSettings() {
                         desc={t('cloudBackup.benefits.growth.desc')}
                       />
                     </ul>
-                    <a
-                      href="https://dashboard.freekasir.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-center text-[11px] font-medium text-primary pt-0.5"
-                    >
-                      {t('cloudBackup.previewDashboard', { dashboard: 'dashboard.freekasir.com' })}
-                    </a>
                   </CardContent>
                 </Card>
               )}
@@ -632,13 +616,6 @@ export default function CloudBackupSettings() {
           <div className="space-y-4">
             {isSyncSubscribed && (
               <>
-                <ExternalMenuCard
-                  href="https://dashboard.freekasir.com"
-                  icon={<BarChart3 className="w-4 h-4" />}
-                  title={t('cloudBackup.menu.dashboard.title')}
-                  subtitle={t('cloudBackup.menu.dashboard.subtitle', { dashboard: 'dashboard.freekasir.com' })}
-                />
-
                 <MenuCard
                   to="/settings/cloud-backup/online-store"
                   icon={<Globe className="w-4 h-4" />}
